@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lib:library xmlns:lib="http://example.org/library#"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://example.org/library# library.xsd"
+             version="1.0"
+             lastUpdated="2025-01-15">
+  <lib:books>
+
+    <lib:book bookId="B001" isbn="978-9-7534-2891-3" edition="3">
+      <lib:title>Tutunamayanlar</lib:title>
+      <lib:author authorId="A001"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Türk Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1972</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>724</lib:pageCount>
+      <lib:publisher>Yapı Kredi Yayınları</lib:publisher>
+      <lib:description>Türk edebiyatının en önemli postmodern romanlarından biri. Selim Işık'ın intiharından sonra, arkadaşı Turgut Özben onun yaşamını araştırır.</lib:description>
+      <lib:rating>4.8</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B002" isbn="978-0-7432-7356-5" edition="1">
+      <lib:title>1984</lib:title>
+      <lib:author authorId="A002"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Distopya</lib:subcategory>
+      <lib:publicationYear>1949</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>328</lib:pageCount>
+      <lib:publisher>Secker and Warburg</lib:publisher>
+      <lib:description>Big Brother gözetiminde, totaliter bir toplumda yaşayan Winston Smith'in özgürlük arayışını anlatan klasik distopik roman.</lib:description>
+      <lib:rating>4.7</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B003" isbn="978-9-7521-3047-2" edition="2">
+      <lib:title>Benim Adım Kırmızı</lib:title>
+      <lib:author authorId="A003"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Tarihi Roman</lib:subcategory>
+      <lib:publicationYear>1998</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>536</lib:pageCount>
+      <lib:publisher>İletişim Yayınları</lib:publisher>
+      <lib:description>16. yüzyıl Osmanlı'sında geçen, bir minyatürcünün öldürülmesiyle başlayan gizemli hikaye. Orhan Pamuk'un Nobel ödüllü eseri.</lib:description>
+      <lib:rating>4.5</lib:rating>
+      <lib:available>false</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B004" isbn="978-0-0613-1088-1" edition="1">
+      <lib:title>Dune</lib:title>
+      <lib:author authorId="A004"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Bilim Kurgu</lib:subcategory>
+      <lib:publicationYear>1965</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>688</lib:pageCount>
+      <lib:publisher>Chilton Books</lib:publisher>
+      <lib:description>Çöl gezegeni Arrakis'te geçen, imparatorluk siyaseti, ekoloji ve dini motiflerle dolu epik bir bilim kurgu serisi.</lib:description>
+      <lib:rating>4.6</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B005" isbn="978-9-7598-4123-6" edition="4">
+      <lib:title>İnce Memed</lib:title>
+      <lib:author authorId="A005"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Türk Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1955</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>387</lib:pageCount>
+      <lib:publisher>Toros Yayınları</lib:publisher>
+      <lib:description>Çukurova'da ağa zulmüne karşı ayaklanan Memed'in mücadelesini anlatan, Türk edebiyatının önemli eserlerinden.</lib:description>
+      <lib:rating>4.4</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B006" isbn="978-0-7432-7357-2" edition="2">
+      <lib:title>Brave New World</lib:title>
+      <lib:author authorId="A006"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Distopya</lib:subcategory>
+      <lib:publicationYear>1932</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>311</lib:pageCount>
+      <lib:publisher>Chatto and Windus</lib:publisher>
+      <lib:description>Teknoloji ve biyolojik mühendislikle yönetilen bir gelecek toplumunu inceleyen, Huxley'in başyapıtı.</lib:description>
+      <lib:rating>4.3</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B007" isbn="978-9-7512-8834-9" edition="1">
+      <lib:title>Yapay Zeka: İnsan Aklını Taklit Eden Makineler</lib:title>
+      <lib:author authorId="A007"/>
+      <lib:category>Bilim ve Teknoloji</lib:category>
+      <lib:subcategory>Yapay Zeka</lib:subcategory>
+      <lib:publicationYear>2022</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>412</lib:pageCount>
+      <lib:publisher>TÜBİTAK Yayınları</lib:publisher>
+      <lib:description>Yapay zeka, makine öğrenmesi ve derin öğrenmenin tarihsel gelişimini ve günümüzdeki uygulamalarını ele alan kapsamlı bir kaynak.</lib:description>
+      <lib:rating>4.2</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B008" isbn="978-0-3859-3348-1" edition="3">
+      <lib:title>Sapiens: A Brief History of Humankind</lib:title>
+      <lib:author authorId="A008"/>
+      <lib:category>Tarih</lib:category>
+      <lib:subcategory>İnsanlık Tarihi</lib:subcategory>
+      <lib:publicationYear>2011</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>443</lib:pageCount>
+      <lib:publisher>Harvill Secker</lib:publisher>
+      <lib:description>Homo sapiens'in taş çağından modern çağa uzanan yolculuğunu, bilişsel devrimden sanayi devrimine kadar anlatan çığır açıcı bir tarih kitabı.</lib:description>
+      <lib:rating>4.5</lib:rating>
+      <lib:available>false</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B009" isbn="978-9-7534-5621-1" edition="2">
+      <lib:title>Çalıkuşu</lib:title>
+      <lib:author authorId="A009"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Türk Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1922</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>482</lib:pageCount>
+      <lib:publisher>İnkılap Kitabevi</lib:publisher>
+      <lib:description>Feride'nin Anadolu'da öğretmenlik macerasını anlatan, Türk edebiyatının vazgeçilmez klasiklerinden biri.</lib:description>
+      <lib:rating>4.6</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B010" isbn="978-0-0628-5023-5" edition="1">
+      <lib:title>The Great Gatsby</lib:title>
+      <lib:author authorId="A010"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Amerikan Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1925</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>180</lib:pageCount>
+      <lib:publisher>Charles Scribner's Sons</lib:publisher>
+      <lib:description>1920'lerin Amerikan rüyasını, zenginliği ve çöküşü anlatan, Fitzgerald'ın ölümsüz eseri.</lib:description>
+      <lib:rating>4.3</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B011" isbn="978-9-7598-6742-1" edition="1">
+      <lib:title>Serenad</lib:title>
+      <lib:author authorId="A011"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Türk Edebiyatı</lib:subcategory>
+      <lib:publicationYear>2011</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>512</lib:pageCount>
+      <lib:publisher>Doğan Kitap</lib:publisher>
+      <lib:description>Türk-Yunan mübadelesini ve iki toplumun ortak kaderini işleyen, duygusal ve tarihi bir roman.</lib:description>
+      <lib:rating>4.4</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B012" isbn="978-0-5252-8473-2" edition="5">
+      <lib:title>Crime and Punishment</lib:title>
+      <lib:author authorId="A012"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Rus Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1866</lib:publicationYear>
+      <lib:language>Russian</lib:language>
+      <lib:pageCount>671</lib:pageCount>
+      <lib:publisher>The Russian Messenger</lib:publisher>
+      <lib:description>Raskolnikov'un bir suç işledikten sonra yaşadığı psikolojik çöküşü ve vicdan azabını anlatan Dostoyevski'nin başyapıtı.</lib:description>
+      <lib:rating>4.7</lib:rating>
+      <lib:available>false</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B013" isbn="978-9-7521-8834-7" edition="2">
+      <lib:title>Kürk Mantolu Madonna</lib:title>
+      <lib:author authorId="A013"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Türk Edebiyatı</lib:subcategory>
+      <lib:publicationYear>1943</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>152</lib:pageCount>
+      <lib:publisher>Remzi Kitabevi</lib:publisher>
+      <lib:description>Berlin'de geçen, tutkulu ve karmaşık bir aşk hikayesi. Sabahattin Ali'nin en çok okunan romanı.</lib:description>
+      <lib:rating>4.6</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B014" isbn="978-0-7432-7001-4" edition="1">
+      <lib:title>The Alchemist</lib:title>
+      <lib:author authorId="A014"/>
+      <lib:category>Roman</lib:category>
+      <lib:subcategory>Felsefi Roman</lib:subcategory>
+      <lib:publicationYear>1988</lib:publicationYear>
+      <lib:language>English</lib:language>
+      <lib:pageCount>163</lib:pageCount>
+      <lib:publisher>HarperCollins</lib:publisher>
+      <lib:description>Santiago adlı bir çobanın kişisel efsanesini keşfetme yolculuğunu anlatan, dünyaca ünlü felsefi roman.</lib:description>
+      <lib:rating>4.2</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+    <lib:book bookId="B015" isbn="978-9-7512-9912-4" edition="3">
+      <lib:title>Veri Bilimi ve Makine Öğrenmesi</lib:title>
+      <lib:author authorId="A007"/>
+      <lib:category>Bilim ve Teknoloji</lib:category>
+      <lib:subcategory>Veri Bilimi</lib:subcategory>
+      <lib:publicationYear>2023</lib:publicationYear>
+      <lib:language>Turkish</lib:language>
+      <lib:pageCount>589</lib:pageCount>
+      <lib:publisher>Seçkin Yayınları</lib:publisher>
+      <lib:description>Python ile veri analizi, görselleştirme ve makine öğrenmesi algoritmalarını pratikte uygulamayı anlatan kapsamlı teknik kaynak.</lib:description>
+      <lib:rating>4.1</lib:rating>
+      <lib:available>true</lib:available>
+    </lib:book>
+
+  </lib:books>
+</lib:library>

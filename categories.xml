@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lib:categories xmlns:lib="http://example.org/library#"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://example.org/library# library.xsd">
+
+  <lib:category categoryId="C001" color="#8B4513">
+    <lib:name>Roman</lib:name>
+    <lib:description>Her türden uzun kurgusal anlatılar. Türk ve dünya edebiyatının başyapıtlarını içerir.</lib:description>
+    <lib:bookCount>11</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C002" color="#2E8B57">
+    <lib:name>Türk Edebiyatı</lib:name>
+    <lib:description>Türk yazarlara ait romanlar, hikayeler ve şiir kitapları.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>6</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C003" color="#4169E1">
+    <lib:name>Distopya</lib:name>
+    <lib:description>Gelecekteki ya da alternatif düzende olumsuz toplumsal yapıları anlatan eserler.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>2</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C004" color="#9400D3">
+    <lib:name>Bilim Kurgu</lib:name>
+    <lib:description>Bilim ve teknoloji temelli kurgusal anlatılar. Uzay, yapay zeka ve gelecek toplumlarını inceler.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>1</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C005" color="#FF6347">
+    <lib:name>Tarihi Roman</lib:name>
+    <lib:description>Gerçek tarihi dönem ve olayları kurgusal karakterlerle harmanlayan romanlar.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>1</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C006" color="#20B2AA">
+    <lib:name>Bilim ve Teknoloji</lib:name>
+    <lib:description>Bilimsel konuları, teknolojiyi ve araştırmaları ele alan popüler bilim ve akademik kitaplar.</lib:description>
+    <lib:bookCount>2</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C007" color="#DAA520">
+    <lib:name>Tarih</lib:name>
+    <lib:description>İnsanlık tarihi, uygarlıklar ve tarihi olayları anlatan kitaplar.</lib:description>
+    <lib:bookCount>1</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C008" color="#B22222">
+    <lib:name>Amerikan Edebiyatı</lib:name>
+    <lib:description>Amerikalı yazarların kaleme aldığı romanlar ve edebiyat eserleri.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>2</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C009" color="#696969">
+    <lib:name>Rus Edebiyatı</lib:name>
+    <lib:description>Rus yazarlara ait dünya klasikleri ve modern eserler.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>1</lib:bookCount>
+  </lib:category>
+
+  <lib:category categoryId="C010" color="#556B2F">
+    <lib:name>Felsefi Roman</lib:name>
+    <lib:description>Felsefi sorular ve anlam arayışını kurgusal bir çerçevede inceleyen romanlar.</lib:description>
+    <lib:parentCategory>Roman</lib:parentCategory>
+    <lib:bookCount>1</lib:bookCount>
+  </lib:category>
+
+</lib:categories>

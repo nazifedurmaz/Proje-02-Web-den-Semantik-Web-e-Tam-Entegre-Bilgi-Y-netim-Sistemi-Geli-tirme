@@ -1,0 +1,469 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix dc:   <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix lib:  <http://example.org/library#> .
+@prefix libr: <http://example.org/library/resource/> .
+
+# ============================================================
+# ONTOLOGY DECLARATION
+# ============================================================
+
+lib:LibraryOntology a owl:Ontology ;
+  rdfs:label "Kütüphane Ontolojisi"@tr ;
+  rdfs:label "Library Ontology"@en ;
+  rdfs:comment "Kütüphane yönetim sistemi için tasarlanmış semantik ontoloji."@tr ;
+  owl:versionInfo "1.0" ;
+  dcterms:created "2025-01-15"^^xsd:date ;
+  dcterms:creator libr:author/A007 .
+
+# ============================================================
+# CLASS DEFINITIONS
+# ============================================================
+
+lib:Book a rdfs:Class, owl:Class ;
+  rdfs:label "Kitap"@tr ;
+  rdfs:label "Book"@en ;
+  rdfs:comment "Kütüphanedeki bir kitabı temsil eden sınıf."@tr ;
+  rdfs:subClassOf schema:Book .
+
+lib:Author a rdfs:Class, owl:Class ;
+  rdfs:label "Yazar"@tr ;
+  rdfs:label "Author"@en ;
+  rdfs:comment "Bir ya da daha fazla kitabın yazarını temsil eden sınıf."@tr ;
+  rdfs:subClassOf schema:Person .
+
+lib:Category a rdfs:Class, owl:Class ;
+  rdfs:label "Kategori"@tr ;
+  rdfs:label "Category"@en ;
+  rdfs:comment "Kitapların sınıflandırıldığı kategoriyi temsil eden sınıf."@tr .
+
+lib:Publisher a rdfs:Class, owl:Class ;
+  rdfs:label "Yayınevi"@tr ;
+  rdfs:label "Publisher"@en ;
+  rdfs:subClassOf schema:Organization .
+
+# ============================================================
+# PROPERTY DEFINITIONS
+# ============================================================
+
+lib:hasAuthor a rdf:Property, owl:ObjectProperty ;
+  rdfs:label "yazarı var"@tr ;
+  rdfs:label "has author"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range lib:Author ;
+  rdfs:subPropertyOf dc:creator .
+
+lib:hasCategory a rdf:Property, owl:ObjectProperty ;
+  rdfs:label "kategorisi var"@tr ;
+  rdfs:label "has category"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range lib:Category .
+
+lib:hasSubCategory a rdf:Property, owl:ObjectProperty ;
+  rdfs:label "alt kategorisi var"@tr ;
+  rdfs:label "has subcategory"@en ;
+  rdfs:domain lib:Category ;
+  rdfs:range lib:Category .
+
+lib:isAvailable a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "mevcut mu"@tr ;
+  rdfs:label "is available"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range xsd:boolean .
+
+lib:rating a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "puanı"@tr ;
+  rdfs:label "rating"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range xsd:decimal .
+
+lib:isbn a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "ISBN"@tr ;
+  rdfs:label "ISBN"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range xsd:string .
+
+lib:pageCount a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "sayfa sayısı"@tr ;
+  rdfs:label "page count"@en ;
+  rdfs:domain lib:Book ;
+  rdfs:range xsd:positiveInteger .
+
+lib:nationality a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "milliyeti"@tr ;
+  rdfs:label "nationality"@en ;
+  rdfs:domain lib:Author ;
+  rdfs:range xsd:string .
+
+lib:isActiveAuthor a rdf:Property, owl:DatatypeProperty ;
+  rdfs:label "aktif yazar mı"@tr ;
+  rdfs:label "is active author"@en ;
+  rdfs:domain lib:Author ;
+  rdfs:range xsd:boolean .
+
+# ============================================================
+# CATEGORY RESOURCES
+# ============================================================
+
+libr:category/C001 a lib:Category ;
+  rdfs:label "Roman"@tr ;
+  dc:description "Her türden uzun kurgusal anlatılar."@tr .
+
+libr:category/C002 a lib:Category ;
+  rdfs:label "Türk Edebiyatı"@tr ;
+  dc:description "Türk yazarlara ait eserler."@tr ;
+  lib:hasSubCategory libr:category/C001 .
+
+libr:category/C003 a lib:Category ;
+  rdfs:label "Distopya"@tr ;
+  lib:hasSubCategory libr:category/C001 .
+
+libr:category/C004 a lib:Category ;
+  rdfs:label "Bilim Kurgu"@tr ;
+  lib:hasSubCategory libr:category/C001 .
+
+libr:category/C006 a lib:Category ;
+  rdfs:label "Bilim ve Teknoloji"@tr .
+
+libr:category/C007 a lib:Category ;
+  rdfs:label "Tarih"@tr .
+
+# ============================================================
+# AUTHOR RESOURCES
+# ============================================================
+
+libr:author/A001 a lib:Author, schema:Person ;
+  schema:givenName "Oğuz" ;
+  schema:familyName "Atay" ;
+  schema:name "Oğuz Atay" ;
+  schema:birthDate "1934"^^xsd:gYear ;
+  schema:deathDate "1977"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor false ;
+  dc:description "Türk postmodern edebiyatının öncüsü."@tr .
+
+libr:author/A002 a lib:Author, schema:Person ;
+  schema:givenName "George" ;
+  schema:familyName "Orwell" ;
+  schema:name "George Orwell" ;
+  schema:birthDate "1903"^^xsd:gYear ;
+  schema:deathDate "1950"^^xsd:gYear ;
+  lib:nationality "British" ;
+  lib:isActiveAuthor false ;
+  schema:url <https://www.georgeorwell.org> ;
+  dc:description "Totalitarizm karşıtı İngiliz yazar."@tr .
+
+libr:author/A003 a lib:Author, schema:Person ;
+  schema:givenName "Orhan" ;
+  schema:familyName "Pamuk" ;
+  schema:name "Orhan Pamuk" ;
+  schema:birthDate "1952"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor true ;
+  schema:url <https://www.orhanpamuk.net> ;
+  schema:award "Nobel Edebiyat Ödülü 2006" ;
+  dc:description "Nobel ödüllü Türk yazar."@tr .
+
+libr:author/A004 a lib:Author, schema:Person ;
+  schema:givenName "Frank" ;
+  schema:familyName "Herbert" ;
+  schema:name "Frank Herbert" ;
+  schema:birthDate "1920"^^xsd:gYear ;
+  schema:deathDate "1986"^^xsd:gYear ;
+  lib:nationality "American" ;
+  lib:isActiveAuthor false .
+
+libr:author/A005 a lib:Author, schema:Person ;
+  schema:givenName "Yaşar" ;
+  schema:familyName "Kemal" ;
+  schema:name "Yaşar Kemal" ;
+  schema:birthDate "1923"^^xsd:gYear ;
+  schema:deathDate "2015"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor false .
+
+libr:author/A006 a lib:Author, schema:Person ;
+  schema:givenName "Aldous" ;
+  schema:familyName "Huxley" ;
+  schema:name "Aldous Huxley" ;
+  schema:birthDate "1894"^^xsd:gYear ;
+  schema:deathDate "1963"^^xsd:gYear ;
+  lib:nationality "British" ;
+  lib:isActiveAuthor false .
+
+libr:author/A007 a lib:Author, schema:Person ;
+  schema:givenName "Ahmet" ;
+  schema:familyName "Yıldırım" ;
+  schema:name "Dr. Ahmet Yıldırım" ;
+  schema:birthDate "1978"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor true ;
+  schema:email "ahmet.yildirim@example.edu.tr" .
+
+libr:author/A008 a lib:Author, schema:Person ;
+  schema:givenName "Yuval Noah" ;
+  schema:familyName "Harari" ;
+  schema:name "Yuval Noah Harari" ;
+  schema:birthDate "1976"^^xsd:gYear ;
+  lib:nationality "Israeli" ;
+  lib:isActiveAuthor true ;
+  schema:url <https://www.ynharari.com> .
+
+libr:author/A009 a lib:Author, schema:Person ;
+  schema:givenName "Reşat Nuri" ;
+  schema:familyName "Güntekin" ;
+  schema:name "Reşat Nuri Güntekin" ;
+  schema:birthDate "1889"^^xsd:gYear ;
+  schema:deathDate "1956"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor false .
+
+libr:author/A010 a lib:Author, schema:Person ;
+  schema:givenName "F. Scott" ;
+  schema:familyName "Fitzgerald" ;
+  schema:name "F. Scott Fitzgerald" ;
+  schema:birthDate "1896"^^xsd:gYear ;
+  schema:deathDate "1940"^^xsd:gYear ;
+  lib:nationality "American" ;
+  lib:isActiveAuthor false .
+
+libr:author/A011 a lib:Author, schema:Person ;
+  schema:givenName "Zülfü" ;
+  schema:familyName "Livaneli" ;
+  schema:name "Zülfü Livaneli" ;
+  schema:birthDate "1946"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor true ;
+  schema:url <https://www.livaneli.com> .
+
+libr:author/A012 a lib:Author, schema:Person ;
+  schema:givenName "Fyodor" ;
+  schema:familyName "Dostoyevski" ;
+  schema:name "Fyodor Dostoyevski" ;
+  schema:birthDate "1821"^^xsd:gYear ;
+  schema:deathDate "1881"^^xsd:gYear ;
+  lib:nationality "Russian" ;
+  lib:isActiveAuthor false .
+
+libr:author/A013 a lib:Author, schema:Person ;
+  schema:givenName "Sabahattin" ;
+  schema:familyName "Ali" ;
+  schema:name "Sabahattin Ali" ;
+  schema:birthDate "1907"^^xsd:gYear ;
+  schema:deathDate "1948"^^xsd:gYear ;
+  lib:nationality "Turkish" ;
+  lib:isActiveAuthor false .
+
+libr:author/A014 a lib:Author, schema:Person ;
+  schema:givenName "Paulo" ;
+  schema:familyName "Coelho" ;
+  schema:name "Paulo Coelho" ;
+  schema:birthDate "1947"^^xsd:gYear ;
+  lib:nationality "Brazilian" ;
+  lib:isActiveAuthor true ;
+  schema:url <https://www.paulocoelho.com> .
+
+# ============================================================
+# BOOK RESOURCES
+# ============================================================
+
+libr:book/B001 a lib:Book, schema:Book ;
+  dc:title "Tutunamayanlar" ;
+  schema:name "Tutunamayanlar" ;
+  lib:hasAuthor libr:author/A001 ;
+  lib:hasCategory libr:category/C002 ;
+  dc:language "Turkish" ;
+  schema:datePublished "1972"^^xsd:gYear ;
+  lib:isbn "978-9-7534-2891-3" ;
+  lib:pageCount 724 ;
+  lib:rating 4.8 ;
+  lib:isAvailable true ;
+  schema:publisher "Yapı Kredi Yayınları" ;
+  dc:description "Türk postmodern edebiyatının başyapıtı."@tr .
+
+libr:book/B002 a lib:Book, schema:Book ;
+  dc:title "1984" ;
+  schema:name "1984" ;
+  lib:hasAuthor libr:author/A002 ;
+  lib:hasCategory libr:category/C003 ;
+  dc:language "English" ;
+  schema:datePublished "1949"^^xsd:gYear ;
+  lib:isbn "978-0-7432-7356-5" ;
+  lib:pageCount 328 ;
+  lib:rating 4.7 ;
+  lib:isAvailable true ;
+  schema:publisher "Secker and Warburg" ;
+  dc:description "Totalitarizmi anlatan distopik roman klasiği."@tr .
+
+libr:book/B003 a lib:Book, schema:Book ;
+  dc:title "Benim Adım Kırmızı" ;
+  schema:name "Benim Adım Kırmızı" ;
+  lib:hasAuthor libr:author/A003 ;
+  lib:hasCategory libr:category/C005 ;
+  dc:language "Turkish" ;
+  schema:datePublished "1998"^^xsd:gYear ;
+  lib:isbn "978-9-7521-3047-2" ;
+  lib:pageCount 536 ;
+  lib:rating 4.5 ;
+  lib:isAvailable false ;
+  schema:publisher "İletişim Yayınları" .
+
+libr:book/B004 a lib:Book, schema:Book ;
+  dc:title "Dune" ;
+  schema:name "Dune" ;
+  lib:hasAuthor libr:author/A004 ;
+  lib:hasCategory libr:category/C004 ;
+  dc:language "English" ;
+  schema:datePublished "1965"^^xsd:gYear ;
+  lib:isbn "978-0-0613-1088-1" ;
+  lib:pageCount 688 ;
+  lib:rating 4.6 ;
+  lib:isAvailable true ;
+  schema:publisher "Chilton Books" .
+
+libr:book/B005 a lib:Book, schema:Book ;
+  dc:title "İnce Memed" ;
+  schema:name "İnce Memed" ;
+  lib:hasAuthor libr:author/A005 ;
+  lib:hasCategory libr:category/C002 ;
+  dc:language "Turkish" ;
+  schema:datePublished "1955"^^xsd:gYear ;
+  lib:isbn "978-9-7598-4123-6" ;
+  lib:pageCount 387 ;
+  lib:rating 4.4 ;
+  lib:isAvailable true ;
+  schema:publisher "Toros Yayınları" .
+
+libr:book/B006 a lib:Book, schema:Book ;
+  dc:title "Brave New World" ;
+  schema:name "Brave New World" ;
+  lib:hasAuthor libr:author/A006 ;
+  lib:hasCategory libr:category/C003 ;
+  dc:language "English" ;
+  schema:datePublished "1932"^^xsd:gYear ;
+  lib:isbn "978-0-7432-7357-2" ;
+  lib:pageCount 311 ;
+  lib:rating 4.3 ;
+  lib:isAvailable true ;
+  schema:publisher "Chatto and Windus" .
+
+libr:book/B007 a lib:Book, schema:Book ;
+  dc:title "Yapay Zeka: İnsan Aklını Taklit Eden Makineler" ;
+  schema:name "Yapay Zeka: İnsan Aklını Taklit Eden Makineler" ;
+  lib:hasAuthor libr:author/A007 ;
+  lib:hasCategory libr:category/C006 ;
+  dc:language "Turkish" ;
+  schema:datePublished "2022"^^xsd:gYear ;
+  lib:isbn "978-9-7512-8834-9" ;
+  lib:pageCount 412 ;
+  lib:rating 4.2 ;
+  lib:isAvailable true ;
+  schema:publisher "TÜBİTAK Yayınları" .
+
+libr:book/B008 a lib:Book, schema:Book ;
+  dc:title "Sapiens: A Brief History of Humankind" ;
+  schema:name "Sapiens: A Brief History of Humankind" ;
+  lib:hasAuthor libr:author/A008 ;
+  lib:hasCategory libr:category/C007 ;
+  dc:language "English" ;
+  schema:datePublished "2011"^^xsd:gYear ;
+  lib:isbn "978-0-3859-3348-1" ;
+  lib:pageCount 443 ;
+  lib:rating 4.5 ;
+  lib:isAvailable false ;
+  schema:publisher "Harvill Secker" .
+
+libr:book/B009 a lib:Book, schema:Book ;
+  dc:title "Çalıkuşu" ;
+  schema:name "Çalıkuşu" ;
+  lib:hasAuthor libr:author/A009 ;
+  lib:hasCategory libr:category/C002 ;
+  dc:language "Turkish" ;
+  schema:datePublished "1922"^^xsd:gYear ;
+  lib:isbn "978-9-7534-5621-1" ;
+  lib:pageCount 482 ;
+  lib:rating 4.6 ;
+  lib:isAvailable true ;
+  schema:publisher "İnkılap Kitabevi" .
+
+libr:book/B010 a lib:Book, schema:Book ;
+  dc:title "The Great Gatsby" ;
+  schema:name "The Great Gatsby" ;
+  lib:hasAuthor libr:author/A010 ;
+  lib:hasCategory libr:category/C001 ;
+  dc:language "English" ;
+  schema:datePublished "1925"^^xsd:gYear ;
+  lib:isbn "978-0-0628-5023-5" ;
+  lib:pageCount 180 ;
+  lib:rating 4.3 ;
+  lib:isAvailable true ;
+  schema:publisher "Charles Scribner's Sons" .
+
+libr:book/B011 a lib:Book, schema:Book ;
+  dc:title "Serenad" ;
+  schema:name "Serenad" ;
+  lib:hasAuthor libr:author/A011 ;
+  lib:hasCategory libr:category/C002 ;
+  dc:language "Turkish" ;
+  schema:datePublished "2011"^^xsd:gYear ;
+  lib:isbn "978-9-7598-6742-1" ;
+  lib:pageCount 512 ;
+  lib:rating 4.4 ;
+  lib:isAvailable true ;
+  schema:publisher "Doğan Kitap" .
+
+libr:book/B012 a lib:Book, schema:Book ;
+  dc:title "Crime and Punishment" ;
+  schema:name "Crime and Punishment" ;
+  lib:hasAuthor libr:author/A012 ;
+  lib:hasCategory libr:category/C001 ;
+  dc:language "Russian" ;
+  schema:datePublished "1866"^^xsd:gYear ;
+  lib:isbn "978-0-5252-8473-2" ;
+  lib:pageCount 671 ;
+  lib:rating 4.7 ;
+  lib:isAvailable false ;
+  schema:publisher "The Russian Messenger" .
+
+libr:book/B013 a lib:Book, schema:Book ;
+  dc:title "Kürk Mantolu Madonna" ;
+  schema:name "Kürk Mantolu Madonna" ;
+  lib:hasAuthor libr:author/A013 ;
+  lib:hasCategory libr:category/C002 ;
+  dc:language "Turkish" ;
+  schema:datePublished "1943"^^xsd:gYear ;
+  lib:isbn "978-9-7521-8834-7" ;
+  lib:pageCount 152 ;
+  lib:rating 4.6 ;
+  lib:isAvailable true ;
+  schema:publisher "Remzi Kitabevi" .
+
+libr:book/B014 a lib:Book, schema:Book ;
+  dc:title "The Alchemist" ;
+  schema:name "The Alchemist" ;
+  lib:hasAuthor libr:author/A014 ;
+  lib:hasCategory libr:category/C001 ;
+  dc:language "English" ;
+  schema:datePublished "1988"^^xsd:gYear ;
+  lib:isbn "978-0-7432-7001-4" ;
+  lib:pageCount 163 ;
+  lib:rating 4.2 ;
+  lib:isAvailable true ;
+  schema:publisher "HarperCollins" .
+
+libr:book/B015 a lib:Book, schema:Book ;
+  dc:title "Veri Bilimi ve Makine Öğrenmesi" ;
+  schema:name "Veri Bilimi ve Makine Öğrenmesi" ;
+  lib:hasAuthor libr:author/A007 ;
+  lib:hasCategory libr:category/C006 ;
+  dc:language "Turkish" ;
+  schema:datePublished "2023"^^xsd:gYear ;
+  lib:isbn "978-9-7512-9912-4" ;
+  lib:pageCount 589 ;
+  lib:rating 4.1 ;
+  lib:isAvailable true ;
+  schema:publisher "Seçkin Yayınları" .

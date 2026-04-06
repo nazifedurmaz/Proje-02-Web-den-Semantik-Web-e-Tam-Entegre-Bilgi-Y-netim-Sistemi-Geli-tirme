@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lib:authors xmlns:lib="http://example.org/library#"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://example.org/library# library.xsd"
+             totalCount="14">
+
+  <lib:author authorId="A001" active="false">
+    <lib:firstName>Oğuz</lib:firstName>
+    <lib:lastName>Atay</lib:lastName>
+    <lib:birthYear>1934</lib:birthYear>
+    <lib:deathYear>1977</lib:deathYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>Türk edebiyatının en özgün yazarlarından biri olan Oğuz Atay, postmodern Türk romanının öncüsü kabul edilir. İTÜ İnşaat Mühendisliği bölümünden mezun olan Atay, akademik kariyerini sürdürürken edebiyat dünyasına önemli katkılar sağladı.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A002" active="false">
+    <lib:firstName>George</lib:firstName>
+    <lib:lastName>Orwell</lib:lastName>
+    <lib:birthYear>1903</lib:birthYear>
+    <lib:deathYear>1950</lib:deathYear>
+    <lib:nationality>British</lib:nationality>
+    <lib:biography>Eric Arthur Blair olarak doğan George Orwell, 20. yüzyılın en etkili İngiliz yazarlarından biridir. Totalitarizme yönelik eleştirileriyle tanınan Orwell, siyasi başyapıtlarıyla dünya edebiyatına damgasını vurmuştur.</lib:biography>
+    <lib:website>https://www.georgeorwell.org</lib:website>
+  </lib:author>
+
+  <lib:author authorId="A003" active="true">
+    <lib:firstName>Orhan</lib:firstName>
+    <lib:lastName>Pamuk</lib:lastName>
+    <lib:birthYear>1952</lib:birthYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>2006 Nobel Edebiyat Ödülü sahibi Orhan Pamuk, İstanbul'da doğdu. Eserleri 60'tan fazla dile çevrilmiş olan Pamuk, çağdaş Türk edebiyatının dünyada en çok tanınan temsilcisidir.</lib:biography>
+    <lib:website>https://www.orhanpamuk.net</lib:website>
+  </lib:author>
+
+  <lib:author authorId="A004" active="false">
+    <lib:firstName>Frank</lib:firstName>
+    <lib:lastName>Herbert</lib:lastName>
+    <lib:birthYear>1920</lib:birthYear>
+    <lib:deathYear>1986</lib:deathYear>
+    <lib:nationality>American</lib:nationality>
+    <lib:biography>Frank Herbert, bilim kurgunun en önemli yazarlarından biridir. Dune serisiyle ekoloji, din, siyaset ve insan psikolojisini ustalıkla harmanlayan Herbert, türün sınırlarını genişletmiştir.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A005" active="false">
+    <lib:firstName>Yaşar</lib:firstName>
+    <lib:lastName>Kemal</lib:lastName>
+    <lib:birthYear>1923</lib:birthYear>
+    <lib:deathYear>2015</lib:deathYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>Türkiye'nin Nobel'e en çok yaklaşan yazarı olarak kabul edilen Yaşar Kemal, Çukurova insanını anlatan destansı romanlarıyla dünya edebiyatında önemli bir yer edinmiştir.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A006" active="false">
+    <lib:firstName>Aldous</lib:firstName>
+    <lib:lastName>Huxley</lib:lastName>
+    <lib:birthYear>1894</lib:birthYear>
+    <lib:deathYear>1963</lib:deathYear>
+    <lib:nationality>British</lib:nationality>
+    <lib:biography>İngiliz romancı, kısa hikaye yazarı ve eleştirmen olan Aldous Huxley, özellikle Brave New World adlı distopik romanıyla tanınmaktadır. Edebiyatın yanı sıra felsefe ve mistisizme de ilgi duymuştur.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A007" active="true">
+    <lib:firstName>Ahmet</lib:firstName>
+    <lib:lastName>Yıldırım</lib:lastName>
+    <lib:birthYear>1978</lib:birthYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>ODTÜ Bilgisayar Mühendisliği mezunu olan Dr. Ahmet Yıldırım, yapay zeka ve makine öğrenmesi alanında uzmanlaşmış bir akademisyen ve yazardır. Çeşitli üniversitelerde ders vermekte ve araştırmalar yürütmektedir.</lib:biography>
+    <lib:email>ahmet.yildirim@example.edu.tr</lib:email>
+  </lib:author>
+
+  <lib:author authorId="A008" active="true">
+    <lib:firstName>Yuval Noah</lib:firstName>
+    <lib:lastName>Harari</lib:lastName>
+    <lib:birthYear>1976</lib:birthYear>
+    <lib:nationality>Israeli</lib:nationality>
+    <lib:biography>İbrani Üniversitesi'nde tarih profesörü olan Yuval Noah Harari, insan tarihi, insan-bilişim ilişkisi ve geleceğin insanlığı üzerine yazdığı kitaplarla dünyaca ün kazanmıştır.</lib:biography>
+    <lib:website>https://www.ynharari.com</lib:website>
+  </lib:author>
+
+  <lib:author authorId="A009" active="false">
+    <lib:firstName>Reşat Nuri</lib:firstName>
+    <lib:lastName>Güntekin</lib:lastName>
+    <lib:birthYear>1889</lib:birthYear>
+    <lib:deathYear>1956</lib:deathYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>Türk edebiyatının önde gelen romancılarından olan Reşat Nuri Güntekin, özellikle Çalıkuşu romanıyla tanınmaktadır. Aynı zamanda eğitimci, gazeteci ve diplomat kimliğiyle de öne çıkmıştır.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A010" active="false">
+    <lib:firstName>F. Scott</lib:firstName>
+    <lib:lastName>Fitzgerald</lib:lastName>
+    <lib:birthYear>1896</lib:birthYear>
+    <lib:deathYear>1940</lib:deathYear>
+    <lib:nationality>American</lib:nationality>
+    <lib:biography>Jazz Çağı'nın sesi olarak kabul edilen F. Scott Fitzgerald, 1920'lerin Amerikan zenginliğini ve çöküşünü en iyi aktaran yazarlardan biridir. The Great Gatsby, dünya edebiyatının vazgeçilmez klasikleri arasında yer alır.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A011" active="true">
+    <lib:firstName>Zülfü</lib:firstName>
+    <lib:lastName>Livaneli</lib:lastName>
+    <lib:birthYear>1946</lib:birthYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>Romancı, müzisyen, film yönetmeni ve siyasetçi kimliklerini bir arada taşıyan Zülfü Livaneli, Türk kültür dünyasının çok yönlü isimlerinden biridir. Romanlarında toplumsal ve siyasi temaları ustaca işler.</lib:biography>
+    <lib:website>https://www.livaneli.com</lib:website>
+  </lib:author>
+
+  <lib:author authorId="A012" active="false">
+    <lib:firstName>Fyodor</lib:firstName>
+    <lib:lastName>Dostoyevski</lib:lastName>
+    <lib:birthYear>1821</lib:birthYear>
+    <lib:deathYear>1881</lib:deathYear>
+    <lib:nationality>Russian</lib:nationality>
+    <lib:biography>Rus edebiyatının ve dünya edebiyatının en büyük ustalarından biri olan Dostoyevski, insan psikolojisini ve varoluşsal soruları derinlemesine inceleyen romanlarıyla ölümsüzleşmiştir.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A013" active="false">
+    <lib:firstName>Sabahattin</lib:firstName>
+    <lib:lastName>Ali</lib:lastName>
+    <lib:birthYear>1907</lib:birthYear>
+    <lib:deathYear>1948</lib:deathYear>
+    <lib:nationality>Turkish</lib:nationality>
+    <lib:biography>Türk edebiyatının önemli hikayeci ve romancılarından biri olan Sabahattin Ali, toplumcu gerçekçi bir anlayışla kaleme aldığı yapıtlarında Anadolu insanını ve toplumsal sorunları işlemiştir.</lib:biography>
+  </lib:author>
+
+  <lib:author authorId="A014" active="true">
+    <lib:firstName>Paulo</lib:firstName>
+    <lib:lastName>Coelho</lib:lastName>
+    <lib:birthYear>1947</lib:birthYear>
+    <lib:nationality>Brazilian</lib:nationality>
+    <lib:biography>Brezilya'nın en ünlü yazarlarından Paulo Coelho, eserleri 170 ülkede 80'den fazla dilde yayımlanan küresel bir yazardır. Felsefi ve ruhsal temalar işleyen romanları milyonlarca okuyucuya ilham vermiştir.</lib:biography>
+    <lib:website>https://www.paulocoelho.com</lib:website>
+  </lib:author>
+
+</lib:authors>

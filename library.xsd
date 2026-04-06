@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:lib="http://example.org/library#"
+           targetNamespace="http://example.org/library#"
+           elementFormDefault="qualified">
+
+  <!-- ==================== Simple Types ==================== -->
+
+  <xs:simpleType name="ISBNType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="978-[0-9]{1}-[0-9]{4}-[0-9]{4}-[0-9]{1}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LanguageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Turkish"/>
+      <xs:enumeration value="English"/>
+      <xs:enumeration value="French"/>
+      <xs:enumeration value="German"/>
+      <xs:enumeration value="Spanish"/>
+      <xs:enumeration value="Italian"/>
+      <xs:enumeration value="Russian"/>
+      <xs:enumeration value="Japanese"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RatingType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="1.0"/>
+      <xs:maxInclusive value="5.0"/>
+      <xs:fractionDigits value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="YearType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1000"/>
+      <xs:maxInclusive value="2025"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PageCountType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="10000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ==================== Complex Types ==================== -->
+
+  <xs:complexType name="AuthorRefType">
+    <xs:attribute name="authorId" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="PublisherType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+      <xs:element name="country" type="xs:string"/>
+      <xs:element name="website" type="xs:anyURI" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="publisherId" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="BookType">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="subtitle" type="xs:string" minOccurs="0"/>
+      <xs:element name="author" type="lib:AuthorRefType" maxOccurs="3"/>
+      <xs:element name="category" type="xs:string"/>
+      <xs:element name="subcategory" type="xs:string" minOccurs="0"/>
+      <xs:element name="publicationYear" type="lib:YearType"/>
+      <xs:element name="language" type="lib:LanguageType"/>
+      <xs:element name="pageCount" type="lib:PageCountType"/>
+      <xs:element name="publisher" type="xs:string"/>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="rating" type="lib:RatingType"/>
+      <xs:element name="available" type="xs:boolean"/>
+      <xs:element name="coverImage" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="bookId" type="xs:string" use="required"/>
+    <xs:attribute name="isbn" type="lib:ISBNType" use="required"/>
+    <xs:attribute name="edition" type="xs:positiveInteger" default="1"/>
+  </xs:complexType>
+
+  <xs:complexType name="AuthorType">
+    <xs:sequence>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="lastName" type="xs:string"/>
+      <xs:element name="birthYear" type="lib:YearType" minOccurs="0"/>
+      <xs:element name="deathYear" type="lib:YearType" minOccurs="0"/>
+      <xs:element name="nationality" type="xs:string"/>
+      <xs:element name="biography" type="xs:string"/>
+      <xs:element name="website" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="email" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="authorId" type="xs:string" use="required"/>
+    <xs:attribute name="active" type="xs:boolean" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="CategoryType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="parentCategory" type="xs:string" minOccurs="0"/>
+      <xs:element name="bookCount" type="xs:nonNegativeInteger"/>
+    </xs:sequence>
+    <xs:attribute name="categoryId" type="xs:string" use="required"/>
+    <xs:attribute name="color" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- ==================== Root Elements ==================== -->
+
+  <xs:element name="library">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="books">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="book" type="lib:BookType" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" fixed="1.0"/>
+      <xs:attribute name="lastUpdated" type="xs:date"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="authors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="author" type="lib:AuthorType" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="totalCount" type="xs:nonNegativeInteger"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="categories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="category" type="lib:CategoryType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
