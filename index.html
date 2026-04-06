@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LibraryOS — Semantik Kütüphane Sistemi</title>
+
+  <!-- RDFa / Semantic Annotation -->
+  <link rel="alternate" type="application/rdf+xml" href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.rdf" title="RDF Veri"/>
+  <link rel="alternate" type="text/turtle" href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.ttl" title="Turtle RDF"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0e0c09;
+      --bg2:       #161310;
+      --bg3:       #1f1b15;
+      --border:    #2e2820;
+      --amber:     #d4a853;
+      --amber-dim: #9a7a3d;
+      --cream:     #f0e8d5;
+      --muted:     #7a6e5f;
+      --green:     #5c8a4e;
+      --red:       #8a4e4e;
+      --radius:    10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,12,9,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--amber);
+      letter-spacing: -.5px;
+    }
+    .logo span { color: var(--cream); font-style: italic; font-size: 1rem; margin-left: .4rem; }
+    nav { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: .875rem;
+      font-weight: 500; letter-spacing: .5px; transition: color .2s;
+    }
+    nav a:hover, nav a.active { color: var(--amber); }
+    .btn-semantic {
+      border: 1px solid var(--amber-dim);
+      color: var(--amber);
+      background: transparent;
+      padding: .4rem 1rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-semantic:hover { background: var(--amber); color: var(--bg); }
+
+    /* ── Hero ── */
+    #home {
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, #2a200f 0%, transparent 70%);
+    }
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--amber-dim);
+      font-size: .75rem; letter-spacing: 2px; text-transform: uppercase;
+      padding: .3rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+    }
+    #home h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    #home h1 em { color: var(--amber); font-style: italic; }
+    #home p {
+      color: var(--muted); max-width: 520px; margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--amber); color: var(--bg);
+      border: none; padding: .75rem 2rem;
+      border-radius: 999px; font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; cursor: pointer; transition: all .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,83,.25); }
+    .stats-row {
+      display: flex; justify-content: center; gap: 3rem;
+      margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; color: var(--amber);
+    }
+    .stat-lbl { font-size: .8rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ── Search Section ── */
+    #books { padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem; color: var(--cream);
+      margin-bottom: .4rem;
+    }
+    .section-sub { color: var(--muted); font-size: .9rem; margin-bottom: 2rem; }
+
+    .filters {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 2rem; align-items: center;
+    }
+    .search-wrap {
+      flex: 1; min-width: 220px;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: .65rem 1rem .65rem 2.8rem;
+      border-radius: var(--radius);
+      font-size: .9rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color .2s;
+    }
+    .search-wrap input:focus { border-color: var(--amber-dim); }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-icon {
+      position: absolute; left: .9rem; top: 50%;
+      transform: translateY(-50%); color: var(--muted);
+    }
+    select {
+      background: var(--bg2); border: 1px solid var(--border);
+      color: var(--cream); padding: .65rem 1rem;
+      border-radius: var(--radius); font-size: .875rem;
+      font-family: 'DM Sans', sans-serif; cursor: pointer; outline: none;
+    }
+    select:focus { border-color: var(--amber-dim); }
+
+    /* ── Book Grid ── */
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .book-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--amber);
+      transform: scaleY(0);
+      transition: transform .2s;
+      transform-origin: top;
+    }
+    .book-card:hover {
+      border-color: var(--amber-dim);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.4);
+    }
+    .book-card:hover::before { transform: scaleY(1); }
+
+    .book-cover {
+      width: 100%; height: 160px;
+      background: var(--bg3);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-cover::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(212,168,83,.08), transparent);
+    }
+    .avail-badge {
+      position: absolute; top: .5rem; right: .5rem;
+      font-size: .7rem; font-weight: 600; letter-spacing: .5px;
+      padding: .2rem .6rem; border-radius: 999px; z-index: 1;
+    }
+    .avail-badge.yes { background: rgba(92,138,78,.2); color: #7ec46c; border: 1px solid #5c8a4e; }
+    .avail-badge.no  { background: rgba(138,78,78,.2); color: #e07575; border: 1px solid #8a4e4e; }
+
+    .book-meta { font-size: .75rem; color: var(--muted); margin-bottom: .4rem; }
+    .book-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; line-height: 1.3; color: var(--cream);
+      margin-bottom: .3rem;
+    }
+    .book-author { font-size: .85rem; color: var(--amber-dim); margin-bottom: .8rem; }
+    .book-desc {
+      font-size: .82rem; color: var(--muted);
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden; margin-bottom: 1rem;
+    }
+    .book-footer { display: flex; align-items: center; justify-content: space-between; }
+    .stars { color: var(--amber); font-size: .85rem; }
+    .page-count { font-size: .78rem; color: var(--muted); }
+    .no-results {
+      grid-column: 1/-1; text-align: center; padding: 4rem;
+      color: var(--muted); font-style: italic;
+    }
+
+    /* ── Detail Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%; max-width: 680px;
+      max-height: 90vh; overflow-y: auto;
+      position: relative;
+      animation: slideUp .25s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); width: 32px; height: 32px;
+      border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; z-index: 1;
+    }
+    .modal-close:hover { color: var(--cream); border-color: var(--amber-dim); }
+    .modal-header {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 1.5rem;
+    }
+    .modal-cover {
+      width: 100px; height: 130px;
+      background: var(--bg3); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; flex-shrink: 0;
+    }
+    .modal-title-section { flex: 1; }
+    .modal-category { font-size: .75rem; color: var(--amber-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .5rem; }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: .3rem; }
+    .modal-author { color: var(--amber-dim); font-size: .95rem; margin-bottom: .5rem; }
+    .modal-body { padding: 1.5rem 2rem; }
+    .detail-row { display: flex; gap: .5rem; margin-bottom: .6rem; font-size: .875rem; }
+    .detail-label { color: var(--muted); width: 120px; flex-shrink: 0; }
+    .detail-value { color: var(--cream); }
+    .modal-desc { margin: 1.2rem 0; font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .modal-actions {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: .75rem; flex-wrap: wrap;
+    }
+    .btn-dl {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--cream); padding: .6rem 1.2rem;
+      border-radius: 999px; font-size: .85rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-dl:hover { border-color: var(--amber-dim); color: var(--amber); }
+    .btn-dl.amber { border-color: var(--amber-dim); color: var(--amber); }
+    .btn-dl.amber:hover { background: var(--amber); color: var(--bg); }
+
+    /* ── Authors Section ── */
+    #authors { padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .author-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .author-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+      transition: border-color .2s;
+    }
+    .author-card:hover { border-color: var(--amber-dim); }
+    .author-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--bg3); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: .75rem;
+    }
+    .author-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--cream); margin-bottom: .2rem; }
+    .author-nationality { font-size: .78rem; color: var(--amber-dim); margin-bottom: .5rem; }
+    .author-bio { font-size: .8rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .active-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: .4rem; }
+
+    /* ── Semantic Info Section ── */
+    #semantic {
+      padding: 3rem 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .semantic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 700px) { .semantic-grid { grid-template-columns: 1fr; } }
+    .sem-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem;
+    }
+    .sem-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: var(--amber); margin-bottom: 1rem;
+    }
+    .code-snippet {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: .75rem; color: #9e8c6e;
+      overflow-x: auto; white-space: pre;
+      line-height: 1.6;
+    }
+    .code-snippet .kw { color: var(--amber); }
+    .code-snippet .str { color: #7ec46c; }
+    .code-snippet .cm { color: var(--muted); font-style: italic; }
+    .dl-links { display: flex; gap: .75rem; margin-top: 1rem; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem; text-align: center;
+      color: var(--muted); font-size: .8rem;
+    }
+    footer a { color: var(--amber-dim); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      nav { gap: .75rem; }
+      .stats-row { gap: 1.5rem; }
+      .modal-header { flex-direction: column; }
+      .modal-cover { width: 100%; height: 120px; }
+    }
+  </style>
+</head>
+
+<body vocab="https://schema.org/" typeof="WebSite">
+
+<!-- ── Header ── -->
+<header>
+  <div class="logo">LibraryOS <span>— Semantik Kütüphane</span></div>
+  <nav>
+    <a href="#home" class="active" onclick="setActive(this)">Anasayfa</a>
+    <a href="#books" onclick="setActive(this)">Kitaplar</a>
+    <a href="#authors" onclick="setActive(this)">Yazarlar</a>
+    <a href="#semantic" onclick="setActive(this)">Semantik</a>
+    <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.ttl" class="btn-semantic" download>⬇ RDF İndir</a>
+  </nav>
+</header>
+
+<!-- ── Hero ── -->
+<section id="home">
+  <div class="hero-tag">Web 3.0 · Semantik Web · RDF + XML</div>
+  <h1>Verinin <em>anlamını</em><br/>keşfedin</h1>
+  <p>XML ile yapılandırılmış, RDF ile semantik anlam kazanmış modern kütüphane yönetim sistemi.</p>
+  <div class="hero-actions">
+    <a href="#books" class="btn-primary">Kitaplığı Keşfet</a>
+    <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.ttl" class="btn-semantic" download>Semantik Veriyi İndir</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="total-books">–</div><div class="stat-lbl">Kitap</div></div>
+    <div class="stat"><div class="stat-num" id="total-authors">–</div><div class="stat-lbl">Yazar</div></div>
+    <div class="stat"><div class="stat-num" id="total-cats">–</div><div class="stat-lbl">Kategori</div></div>
+    <div class="stat"><div class="stat-num" id="avail-count">–</div><div class="stat-lbl">Mevcut Kitap</div></div>
+  </div>
+</section>
+
+<!-- ── Books ── -->
+<section id="books">
+  <div class="section-title">Kitaplar</div>
+  <div class="section-sub">XML veri kaynağından dinamik olarak yüklenmektedir</div>
+
+  <div class="filters">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="Kitap adı, yazar veya açıklama ara…"/>
+    </div>
+    <select id="filter-cat">
+      <option value="">Tüm Kategoriler</option>
+    </select>
+    <select id="filter-lang">
+      <option value="">Tüm Diller</option>
+    </select>
+    <select id="filter-avail">
+      <option value="">Tüm Durumlar</option>
+      <option value="true">Mevcut</option>
+      <option value="false">Ödünçte</option>
+    </select>
+    <button class="btn-dl amber" onclick="downloadAllXML()">⬇ XML İndir</button>
+  </div>
+
+  <div class="book-grid" id="book-grid">
+    <div class="no-results">Veriler yükleniyor…</div>
+  </div>
+</section>
+
+<!-- ── Authors ── -->
+<section id="authors">
+  <div class="section-title">Yazarlar</div>
+  <div class="section-sub">Kütüphanemizdeki yazarlar ve biyografileri</div>
+  <div class="author-grid" id="author-grid"></div>
+</section>
+
+<!-- ── Semantic ── -->
+<section id="semantic">
+  <div class="section-title">Semantik Katman</div>
+  <div class="section-sub">RDF triples ve ontoloji yapısı</div>
+  <div class="semantic-grid">
+    <div class="sem-card">
+      <h3>🔗 RDF Turtle Örneği</h3>
+      <div class="code-snippet"><span class="cm"># Kitap kaynağı</span>
+<span class="kw">libr:book/B001</span> <span class="kw">a</span> <span class="str">lib:Book</span> ;
+  <span class="kw">dc:title</span>  <span class="str">"Tutunamayanlar"</span> ;
+  <span class="kw">lib:hasAuthor</span> <span class="str">libr:author/A001</span> ;
+  <span class="kw">lib:rating</span>  <span class="str">4.8</span> ;
+  <span class="kw">lib:isAvailable</span> <span class="str">true</span> .
+
+<span class="cm"># Yazar kaynağı</span>
+<span class="kw">libr:author/A001</span> <span class="kw">a</span> <span class="str">lib:Author</span> ;
+  <span class="kw">schema:name</span> <span class="str">"Oğuz Atay"</span> ;
+  <span class="kw">lib:nationality</span> <span class="str">"Turkish"</span> .</div>
+    </div>
+    <div class="sem-card">
+      <h3>📐 Ontoloji Sınıfları</h3>
+      <div class="code-snippet"><span class="cm"># Sınıf tanımları</span>
+<span class="kw">lib:Book</span> <span class="kw">a</span> <span class="str">owl:Class</span> ;
+  <span class="kw">rdfs:subClassOf</span> <span class="str">schema:Book</span> .
+
+<span class="kw">lib:Author</span> <span class="kw">a</span> <span class="str">owl:Class</span> ;
+  <span class="kw">rdfs:subClassOf</span> <span class="str">schema:Person</span> .
+
+<span class="cm"># Özellik tanımları</span>
+<span class="kw">lib:hasAuthor</span> <span class="kw">a</span> <span class="str">owl:ObjectProperty</span> ;
+  <span class="kw">rdfs:domain</span> <span class="str">lib:Book</span> ;
+  <span class="kw">rdfs:range</span>  <span class="str">lib:Author</span> .</div>
+    </div>
+    <div class="sem-card">
+      <h3>📥 Semantik Veri İndir</h3>
+      <p style="color:var(--muted);font-size:.875rem;margin-bottom:1rem;">Kütüphane verisini farklı semantik formatlarda indirin:</p>
+      <div class="dl-links">
+        <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.ttl" download class="btn-dl amber">Turtle (.ttl)</a>
+        <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/books.xml" download class="btn-dl">books.xml</a>
+        <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/authors.xml" download class="btn-dl">authors.xml</a>
+        <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/categories.xml" download class="btn-dl">categories.xml</a>
+        <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/library.xsd" download class="btn-dl">Schema (.xsd)</a>
+      </div>
+    </div>
+    <div class="sem-card">
+      <h3>📊 Triple Sayacı</h3>
+      <div id="triple-stats" style="color:var(--muted);font-size:.875rem;line-height:2;">
+        Yükleniyor…
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>LibraryOS · <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/rdf/library.ttl" download>RDF Turtle</a> · <a href="http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/books.xml" download>XML</a> · Semantik Web Projesi</p>
+  <p style="margin-top:.5rem;">Web 1.0 → Web 2.0 → <strong style="color:var(--amber)">Semantik Web (3.0)</strong></p>
+</footer>
+
+<!-- ── Detail Modal ── -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-cover" id="m-cover">📚</div>
+      <div class="modal-title-section">
+        <div class="modal-category" id="m-cat"></div>
+        <div class="modal-title" id="m-title"></div>
+        <div class="modal-author" id="m-author"></div>
+        <div id="m-avail"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="detail-row"><span class="detail-label">ISBN</span><span class="detail-value" id="m-isbn"></span></div>
+      <div class="detail-row"><span class="detail-label">Yayın Yılı</span><span class="detail-value" id="m-year"></span></div>
+      <div class="detail-row"><span class="detail-label">Dil</span><span class="detail-value" id="m-lang"></span></div>
+      <div class="detail-row"><span class="detail-label">Sayfa</span><span class="detail-value" id="m-pages"></span></div>
+      <div class="detail-row"><span class="detail-label">Yayınevi</span><span class="detail-value" id="m-pub"></span></div>
+      <div class="detail-row"><span class="detail-label">Puan</span><span class="detail-value" id="m-rating"></span></div>
+      <div class="modal-desc" id="m-desc"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-dl amber" id="m-dl-xml" onclick="downloadBookXML()">⬇ XML Olarak İndir</button>
+      <button class="btn-dl" onclick="downloadBookRDF()">⬇ RDF Kaydı</button>
+      <button class="btn-dl" onclick="closeModal()">Kapat</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──
+let allBooks = [], allAuthors = [], allCategories = [];
+let currentBook = null;
+
+// ── Emoji covers by category ──
+const COVERS = {
+  'Roman': '📖', 'Türk Edebiyatı': '🕌', 'Distopya': '🌑',
+  'Bilim Kurgu': '🚀', 'Tarihi Roman': '🏛️', 'Bilim ve Teknoloji': '💻',
+  'Tarih': '🗺️', 'Amerikan Edebiyatı': '🗽', 'Rus Edebiyatı': '❄️',
+  'Felsefi Roman': '🧭'
+};
+
+// ── Parse XML helper ──
+function getText(el, tag) {
+  const found = el.getElementsByTagName(tag)[0];
+  return found ? found.textContent.trim() : '';
+}
+function getAttr(el, attr) { return el.getAttribute(attr) || ''; }
+
+// ── Fetch & Parse books.xml ──
+async function loadBooks() {
+  try {
+    const res = await fetch('http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/books.xml');
+    const txt = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(txt, 'application/xml');
+    const bookEls = doc.getElementsByTagName('lib:book');
+    allBooks = Array.from(bookEls).map(b => ({
+      id:       getAttr(b, 'bookId'),
+      isbn:     getAttr(b, 'isbn'),
+      edition:  getAttr(b, 'edition'),
+      title:    getText(b, 'lib:title'),
+      authorId: b.getElementsByTagName('lib:author')[0]?.getAttribute('authorId') || '',
+      category: getText(b, 'lib:category'),
+      subcategory: getText(b, 'lib:subcategory'),
+      year:     getText(b, 'lib:publicationYear'),
+      lang:     getText(b, 'lib:language'),
+      pages:    getText(b, 'lib:pageCount'),
+      publisher:getText(b, 'lib:publisher'),
+      desc:     getText(b, 'lib:description'),
+      rating:   parseFloat(getText(b, 'lib:rating')),
+      available: getText(b, 'lib:available') === 'true',
+    }));
+    return true;
+  } catch(e) { console.error('books.xml yüklenemedi:', e); return false; }
+}
+
+// ── Fetch & Parse authors.xml ──
+async function loadAuthors() {
+  try {
+    const res = await fetch('http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/authors.xml');
+    const txt = await res.text();
+    const doc = new DOMParser().parseFromString(txt, 'application/xml');
+    const els = doc.getElementsByTagName('lib:author');
+    allAuthors = Array.from(els).map(a => ({
+      id:    getAttr(a, 'authorId'),
+      active: getAttr(a, 'active') !== 'false',
+      firstName: getText(a, 'lib:firstName'),
+      lastName:  getText(a, 'lib:lastName'),
+      birthYear: getText(a, 'lib:birthYear'),
+      deathYear: getText(a, 'lib:deathYear'),
+      nationality: getText(a, 'lib:nationality'),
+      bio:   getText(a, 'lib:biography'),
+      website: getText(a, 'lib:website'),
+    }));
+    return true;
+  } catch(e) { console.error('authors.xml yüklenemedi:', e); return false; }
+}
+
+// ── Fetch & Parse categories.xml ──
+async function loadCategories() {
+  try {
+    const res = await fetch('http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/categories.xml');
+    const txt = await res.text();
+    const doc = new DOMParser().parseFromString(txt, 'application/xml');
+    const els = doc.getElementsByTagName('lib:category');
+    allCategories = Array.from(els).map(c => ({
+      id:    getAttr(c, 'categoryId'),
+      name:  getText(c, 'lib:name'),
+      desc:  getText(c, 'lib:description'),
+      count: getText(c, 'lib:bookCount'),
+      color: getAttr(c, 'color'),
+    }));
+    return true;
+  } catch(e) { console.error('categories.xml yüklenemedi:', e); return false; }
+}
+
+// ── Get author name by id ──
+function getAuthorName(id) {
+  const a = allAuthors.find(x => x.id === id);
+  return a ? `${a.firstName} ${a.lastName}` : 'Bilinmiyor';
+}
+
+// ── Stars render ──
+function renderStars(r) {
+  const full = Math.floor(r);
+  const half = r - full >= 0.5 ? 1 : 0;
+  return '★'.repeat(full) + (half ? '½' : '') + ` ${r}`;
+}
+
+// ── Populate filters ──
+function populateFilters() {
+  const catSel = document.getElementById('filter-cat');
+  const langSel = document.getElementById('filter-lang');
+  const cats = [...new Set(allBooks.map(b => b.category))].sort();
+  const langs = [...new Set(allBooks.map(b => b.lang))].sort();
+  cats.forEach(c => catSel.add(new Option(c, c)));
+  langs.forEach(l => langSel.add(new Option(l, l)));
+}
+
+// ── Update stats ──
+function updateStats() {
+  document.getElementById('total-books').textContent   = allBooks.length;
+  document.getElementById('total-authors').textContent = allAuthors.length;
+  document.getElementById('total-cats').textContent    = allCategories.length;
+  document.getElementById('avail-count').textContent   = allBooks.filter(b => b.available).length;
+
+  // Triple stats (approximate: ontology + classes + props + instances)
+  const triples = 14 + 10 + 15 * 10 + 14 * 8; // rough count
+  document.getElementById('triple-stats').innerHTML = `
+    <div>📘 Kitap kaynakları: <strong style="color:var(--cream)">${allBooks.length * 10}</strong> triple</div>
+    <div>👤 Yazar kaynakları: <strong style="color:var(--cream)">${allAuthors.length * 8}</strong> triple</div>
+    <div>🏷️ Ontoloji tanımları: <strong style="color:var(--cream)">29</strong> triple</div>
+    <div>🔗 Kategori ilişkileri: <strong style="color:var(--cream)">22</strong> triple</div>
+    <div style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border)">
+      <strong style="color:var(--amber)">Toplam: ~${triples} RDF Triple</strong>
+    </div>
+  `;
+}
+
+// ── Render books ──
+function renderBooks(books) {
+  const grid = document.getElementById('book-grid');
+  if (!books.length) {
+    grid.innerHTML = '<div class="no-results">🔍 Sonuç bulunamadı.</div>';
+    return;
+  }
+  grid.innerHTML = books.map(b => {
+    const author = getAuthorName(b.authorId);
+    const cover  = COVERS[b.category] || COVERS[b.subcategory] || '📚';
+    return `
+    <div class="book-card" onclick="openModal('${b.id}')" property="schema:Book">
+      <div class="book-cover">
+        ${cover}
+        <span class="avail-badge ${b.available ? 'yes' : 'no'}">
+          ${b.available ? 'Mevcut' : 'Ödünçte'}
+        </span>
+      </div>
+      <div class="book-meta">${b.category} · ${b.year}</div>
+      <div class="book-title" property="schema:name">${b.title}</div>
+      <div class="book-author" property="schema:author">${author}</div>
+      <div class="book-desc">${b.desc}</div>
+      <div class="book-footer">
+        <span class="stars">${renderStars(b.rating)}</span>
+        <span class="page-count">${b.pages} sayfa</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Render authors ──
+function renderAuthors() {
+  const grid = document.getElementById('author-grid');
+  const avatars = ['👨‍💼','👩‍💼','🧑‍🎨','👨‍🏫','👩‍🔬','🧑‍💻','👨‍📚','👩‍📚'];
+  grid.innerHTML = allAuthors.map((a, i) => `
+    <div class="author-card">
+      <div class="author-avatar">${avatars[i % avatars.length]}</div>
+      ${a.active ? '<span class="active-dot"></span>' : ''}
+      <div class="author-name">${a.firstName} ${a.lastName}</div>
+      <div class="author-nationality">${a.nationality} · ${a.birthYear}${a.deathYear ? '–' + a.deathYear : ''}</div>
+      <div class="author-bio">${a.bio}</div>
+    </div>
+  `).join('');
+}
+
+// ── Filtering ──
+function applyFilters() {
+  const q    = document.getElementById('search').value.toLowerCase();
+  const cat  = document.getElementById('filter-cat').value;
+  const lang = document.getElementById('filter-lang').value;
+  const avl  = document.getElementById('filter-avail').value;
+
+  const filtered = allBooks.filter(b => {
+    const author = getAuthorName(b.authorId).toLowerCase();
+    const matchQ   = !q || b.title.toLowerCase().includes(q) || author.includes(q) || b.desc.toLowerCase().includes(q);
+    const matchCat = !cat  || b.category === cat;
+    const matchLang= !lang || b.lang === lang;
+    const matchAvl = !avl  || String(b.available) === avl;
+    return matchQ && matchCat && matchLang && matchAvl;
+  });
+  renderBooks(filtered);
+}
+
+// ── Modal ──
+function openModal(id) {
+  const b = allBooks.find(x => x.id === id);
+  if (!b) return;
+  currentBook = b;
+  const author = getAuthorName(b.authorId);
+  const cover  = COVERS[b.category] || '📚';
+
+  document.getElementById('m-cover').textContent    = cover;
+  document.getElementById('m-cat').textContent      = `${b.category}${b.subcategory ? ' · ' + b.subcategory : ''}`;
+  document.getElementById('m-title').textContent    = b.title;
+  document.getElementById('m-author').textContent   = author;
+  document.getElementById('m-avail').innerHTML      = `<span class="avail-badge ${b.available ? 'yes' : 'no'}">${b.available ? '✓ Mevcut' : '✗ Ödünçte'}</span>`;
+  document.getElementById('m-isbn').textContent     = b.isbn;
+  document.getElementById('m-year').textContent     = b.year;
+  document.getElementById('m-lang').textContent     = b.lang;
+  document.getElementById('m-pages').textContent    = b.pages + ' sayfa';
+  document.getElementById('m-pub').textContent      = b.publisher;
+  document.getElementById('m-rating').innerHTML     = `<span class="stars">${renderStars(b.rating)}</span>`;
+  document.getElementById('m-desc').textContent     = b.desc;
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Download XML for single book ──
+function downloadBookXML() {
+  if (!currentBook) return;
+  const b = currentBook;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<lib:library xmlns:lib="http://example.org/library#">
+  <lib:books>
+    <lib:book bookId="${b.id}" isbn="${b.isbn}">
+      <lib:title>${b.title}</lib:title>
+      <lib:author authorId="${b.authorId}"/>
+      <lib:category>${b.category}</lib:category>
+      <lib:publicationYear>${b.year}</lib:publicationYear>
+      <lib:language>${b.lang}</lib:language>
+      <lib:pageCount>${b.pages}</lib:pageCount>
+      <lib:publisher>${b.publisher}</lib:publisher>
+      <lib:description>${b.desc}</lib:description>
+      <lib:rating>${b.rating}</lib:rating>
+      <lib:available>${b.available}</lib:available>
+    </lib:book>
+  </lib:books>
+</lib:library>`;
+  downloadBlob(xml, `${b.id}_${b.title.replace(/\s+/g,'_')}.xml`, 'application/xml');
+}
+
+// ── Download RDF snippet for single book ──
+function downloadBookRDF() {
+  if (!currentBook) return;
+  const b = currentBook;
+  const author = getAuthorName(b.authorId);
+  const ttl = `@prefix lib:  <http://example.org/library#> .
+@prefix libr: <http://example.org/library/resource/> .
+@prefix dc:   <http://purl.org/dc/elements/1.1/> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+libr:book/${b.id} a lib:Book, schema:Book ;
+  dc:title "${b.title}" ;
+  lib:hasAuthor libr:author/${b.authorId} ;
+  lib:hasCategory libr:category/${b.category} ;
+  dc:language "${b.lang}" ;
+  schema:datePublished "${b.year}"^^xsd:gYear ;
+  lib:isbn "${b.isbn}" ;
+  lib:pageCount ${b.pages} ;
+  lib:rating ${b.rating} ;
+  lib:isAvailable ${b.available} ;
+  schema:publisher "${b.publisher}" .
+`;
+  downloadBlob(ttl, `${b.id}.ttl`, 'text/turtle');
+}
+
+// ── Download all books XML ──
+function downloadAllXML() {
+  fetch('http://yunus.hacettepe.edu.tr/~nazifedurmaz/proje2/xml/books.xml')
+    .then(r => r.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'books.xml'; a.click();
+      URL.revokeObjectURL(url);
+    });
+}
+
+function downloadBlob(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Nav active ──
+function setActive(el) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── Init ──
+async function init() {
+  const [bOk, aOk, cOk] = await Promise.all([loadBooks(), loadAuthors(), loadCategories()]);
+
+  if (!bOk) {
+    // Fallback with embedded data if fetch fails (e.g., file:// protocol)
+    allBooks = FALLBACK_BOOKS;
+    allAuthors = FALLBACK_AUTHORS;
+    allCategories = FALLBACK_CATS;
+  }
+
+  populateFilters();
+  renderBooks(allBooks);
+  renderAuthors();
+  updateStats();
+
+  document.getElementById('search').addEventListener('input', applyFilters);
+  document.getElementById('filter-cat').addEventListener('change', applyFilters);
+  document.getElementById('filter-lang').addEventListener('change', applyFilters);
+  document.getElementById('filter-avail').addEventListener('change', applyFilters);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+}
+
+// ── Fallback embedded data (used when running from file:// protocol) ──
+const FALLBACK_BOOKS = [
+  {id:'B001',isbn:'978-9-7534-2891-3',edition:'3',title:'Tutunamayanlar',authorId:'A001',category:'Roman',subcategory:'Türk Edebiyatı',year:'1972',lang:'Turkish',pages:'724',publisher:'Yapı Kredi Yayınları',desc:'Türk edebiyatının en önemli postmodern romanlarından biri.',rating:4.8,available:true},
+  {id:'B002',isbn:'978-0-7432-7356-5',edition:'1',title:'1984',authorId:'A002',category:'Roman',subcategory:'Distopya',year:'1949',lang:'English',pages:'328',publisher:'Secker and Warburg',desc:'Big Brother gözetiminde totaliter toplumda yaşayan Winston Smith\'in hikayesi.',rating:4.7,available:true},
+  {id:'B003',isbn:'978-9-7521-3047-2',edition:'2',title:'Benim Adım Kırmızı',authorId:'A003',category:'Roman',subcategory:'Tarihi Roman',year:'1998',lang:'Turkish',pages:'536',publisher:'İletişim Yayınları',desc:'16. yüzyıl Osmanlı\'sında geçen Nobel ödüllü eser.',rating:4.5,available:false},
+  {id:'B004',isbn:'978-0-0613-1088-1',edition:'1',title:'Dune',authorId:'A004',category:'Roman',subcategory:'Bilim Kurgu',year:'1965',lang:'English',pages:'688',publisher:'Chilton Books',desc:'Çöl gezegeni Arrakis\'te geçen epik bilim kurgu.',rating:4.6,available:true},
+  {id:'B005',isbn:'978-9-7598-4123-6',edition:'4',title:'İnce Memed',authorId:'A005',category:'Roman',subcategory:'Türk Edebiyatı',year:'1955',lang:'Turkish',pages:'387',publisher:'Toros Yayınları',desc:'Çukurova\'da ağa zulmüne karşı mücadele.',rating:4.4,available:true},
+  {id:'B006',isbn:'978-0-7432-7357-2',edition:'2',title:'Brave New World',authorId:'A006',category:'Roman',subcategory:'Distopya',year:'1932',lang:'English',pages:'311',publisher:'Chatto and Windus',desc:'Teknoloji ile yönetilen gelecek toplum.',rating:4.3,available:true},
+  {id:'B007',isbn:'978-9-7512-8834-9',edition:'1',title:'Yapay Zeka',authorId:'A007',category:'Bilim ve Teknoloji',subcategory:'Yapay Zeka',year:'2022',lang:'Turkish',pages:'412',publisher:'TÜBİTAK Yayınları',desc:'Yapay zekanın tarihsel gelişimi.',rating:4.2,available:true},
+  {id:'B008',isbn:'978-0-3859-3348-1',edition:'3',title:'Sapiens',authorId:'A008',category:'Tarih',subcategory:'İnsanlık Tarihi',year:'2011',lang:'English',pages:'443',publisher:'Harvill Secker',desc:'Homo sapiens\'in yolculuğu.',rating:4.5,available:false},
+  {id:'B009',isbn:'978-9-7534-5621-1',edition:'2',title:'Çalıkuşu',authorId:'A009',category:'Roman',subcategory:'Türk Edebiyatı',year:'1922',lang:'Turkish',pages:'482',publisher:'İnkılap Kitabevi',desc:'Feride\'nin Anadolu\'daki öğretmenlik macerası.',rating:4.6,available:true},
+  {id:'B010',isbn:'978-0-0628-5023-5',edition:'1',title:'The Great Gatsby',authorId:'A010',category:'Roman',subcategory:'Amerikan Edebiyatı',year:'1925',lang:'English',pages:'180',publisher:"Charles Scribner's Sons",desc:'1920\'lerin Amerikan rüyası.',rating:4.3,available:true},
+  {id:'B011',isbn:'978-9-7598-6742-1',edition:'1',title:'Serenad',authorId:'A011',category:'Roman',subcategory:'Türk Edebiyatı',year:'2011',lang:'Turkish',pages:'512',publisher:'Doğan Kitap',desc:'Türk-Yunan mübadelesini anlatan roman.',rating:4.4,available:true},
+  {id:'B012',isbn:'978-0-5252-8473-2',edition:'5',title:'Crime and Punishment',authorId:'A012',category:'Roman',subcategory:'Rus Edebiyatı',year:'1866',lang:'Russian',pages:'671',publisher:'The Russian Messenger',desc:"Raskolnikov'un psikolojik çöküşü.",rating:4.7,available:false},
+  {id:'B013',isbn:'978-9-7521-8834-7',edition:'2',title:'Kürk Mantolu Madonna',authorId:'A013',category:'Roman',subcategory:'Türk Edebiyatı',year:'1943',lang:'Turkish',pages:'152',publisher:'Remzi Kitabevi',desc:'Berlin\'de tutkulu bir aşk hikayesi.',rating:4.6,available:true},
+  {id:'B014',isbn:'978-0-7432-7001-4',edition:'1',title:'The Alchemist',authorId:'A014',category:'Roman',subcategory:'Felsefi Roman',year:'1988',lang:'English',pages:'163',publisher:'HarperCollins',desc:"Santiago'nun kişisel efsanesini keşfetme yolculuğu.",rating:4.2,available:true},
+  {id:'B015',isbn:'978-9-7512-9912-4',edition:'3',title:'Veri Bilimi ve Makine Öğrenmesi',authorId:'A007',category:'Bilim ve Teknoloji',subcategory:'Veri Bilimi',year:'2023',lang:'Turkish',pages:'589',publisher:'Seçkin Yayınları',desc:'Python ile veri analizi ve makine öğrenmesi.',rating:4.1,available:true},
+];
+const FALLBACK_AUTHORS = [
+  {id:'A001',active:false,firstName:'Oğuz',lastName:'Atay',birthYear:'1934',deathYear:'1977',nationality:'Turkish',bio:'Türk postmodern edebiyatının öncüsü.'},
+  {id:'A002',active:false,firstName:'George',lastName:'Orwell',birthYear:'1903',deathYear:'1950',nationality:'British',bio:'Totalitarizm karşıtı İngiliz yazar.'},
+  {id:'A003',active:true,firstName:'Orhan',lastName:'Pamuk',birthYear:'1952',deathYear:'',nationality:'Turkish',bio:'2006 Nobel Edebiyat Ödülü sahibi.'},
+  {id:'A004',active:false,firstName:'Frank',lastName:'Herbert',birthYear:'1920',deathYear:'1986',nationality:'American',bio:'Dune serisiyle bilim kurgunun sınırlarını genişletti.'},
+  {id:'A005',active:false,firstName:'Yaşar',lastName:'Kemal',birthYear:'1923',deathYear:'2015',nationality:'Turkish',bio:'Çukurova destanlarının yazarı.'},
+  {id:'A006',active:false,firstName:'Aldous',lastName:'Huxley',birthYear:'1894',deathYear:'1963',nationality:'British',bio:'Brave New World ile distopik edebiyatın temsilcisi.'},
+  {id:'A007',active:true,firstName:'Ahmet',lastName:'Yıldırım',birthYear:'1978',deathYear:'',nationality:'Turkish',bio:'Yapay zeka ve veri bilimi uzmanı.'},
+  {id:'A008',active:true,firstName:'Yuval Noah',lastName:'Harari',birthYear:'1976',deathYear:'',nationality:'Israeli',bio:'İnsanlık tarihinin en iyi anlatıcılarından.'},
+  {id:'A009',active:false,firstName:'Reşat Nuri',lastName:'Güntekin',birthYear:'1889',deathYear:'1956',nationality:'Turkish',bio:'Çalıkuşu ile Türk edebiyatının klasiklerinden.'},
+  {id:'A010',active:false,firstName:'F. Scott',lastName:'Fitzgerald',birthYear:'1896',deathYear:'1940',nationality:'American',bio:'Jazz Çağı\'nın sesi.'},
+  {id:'A011',active:true,firstName:'Zülfü',lastName:'Livaneli',birthYear:'1946',deathYear:'',nationality:'Turkish',bio:'Romancı, müzisyen ve film yönetmeni.'},
+  {id:'A012',active:false,firstName:'Fyodor',lastName:'Dostoyevski',birthYear:'1821',deathYear:'1881',nationality:'Russian',bio:'Rus edebiyatının en büyük ustalarından.'},
+  {id:'A013',active:false,firstName:'Sabahattin',lastName:'Ali',birthYear:'1907',deathYear:'1948',nationality:'Turkish',bio:'Toplumcu gerçekçi Türk edebiyatçı.'},
+  {id:'A014',active:true,firstName:'Paulo',lastName:'Coelho',birthYear:'1947',deathYear:'',nationality:'Brazilian',bio:'The Alchemist ile dünyaca ünlü Brezilyalı yazar.'},
+];
+const FALLBACK_CATS = [
+  {id:'C001',name:'Roman',desc:'Kurgusal anlatılar',count:'11',color:'#8B4513'},
+  {id:'C002',name:'Türk Edebiyatı',desc:'Türk yazarlar',count:'6',color:'#2E8B57'},
+  {id:'C003',name:'Distopya',desc:'Olumsuz gelecek toplumlar',count:'2',color:'#4169E1'},
+  {id:'C004',name:'Bilim Kurgu',desc:'Bilim temelli kurgu',count:'1',color:'#9400D3'},
+  {id:'C005',name:'Tarihi Roman',desc:'Tarihi dönem kurgusu',count:'1',color:'#FF6347'},
+  {id:'C006',name:'Bilim ve Teknoloji',desc:'Bilimsel kitaplar',count:'2',color:'#20B2AA'},
+  {id:'C007',name:'Tarih',desc:'Tarihi kitaplar',count:'1',color:'#DAA520'},
+];
+
+init();
+</script>
+</body>
+</html>

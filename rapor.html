@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Proje Raporu — LibraryOS Semantik Kütüphane Sistemi</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  h1 { font-family: 'Source Serif 4', serif; font-size: 24pt; font-weight: 600; color: #1a1a1a; margin-bottom: .5rem; }
+  h2 { font-family: 'Source Serif 4', serif; font-size: 15pt; font-weight: 600; color: #2c3e50; margin: 2rem 0 .75rem; border-bottom: 2px solid #d4a853; padding-bottom: .4rem; }
+  h3 { font-family: 'Source Serif 4', serif; font-size: 12pt; font-weight: 600; color: #34495e; margin: 1.5rem 0 .5rem; }
+  p  { margin-bottom: .9rem; }
+  ul, ol { margin: .5rem 0 1rem 1.5rem; }
+  li { margin-bottom: .3rem; }
+  code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 9pt;
+    background: #f5f1e8;
+    padding: .1rem .4rem;
+    border-radius: 3px;
+    color: #7d5a1e;
+  }
+  pre {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 8.5pt;
+    background: #f8f5ee;
+    border: 1px solid #e8dfc8;
+    border-left: 4px solid #d4a853;
+    padding: 1rem 1.2rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: .75rem 0 1rem;
+    white-space: pre;
+    line-height: 1.5;
+    color: #2c2416;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 10pt; }
+  th { background: #2c3e50; color: #fff; padding: .5rem .75rem; text-align: left; font-weight: 600; }
+  td { padding: .45rem .75rem; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafaf8; }
+  .cover {
+    text-align: center; padding: 3rem 2rem 2rem;
+    border-bottom: 2px solid #d4a853;
+    margin-bottom: 2rem;
+  }
+  .cover .institution { font-size: 10pt; color: #7a7a7a; margin-bottom: 1.5rem; letter-spacing: 1px; text-transform: uppercase; }
+  .cover .subtitle { font-family: 'Source Serif 4', serif; font-size: 13pt; color: #7d5a1e; font-style: italic; margin-bottom: 2rem; }
+  .cover .meta { font-size: 10pt; color: #555; line-height: 2; }
+  .badge {
+    display: inline-block;
+    background: #d4a853; color: #fff;
+    padding: .2rem .6rem; border-radius: 3px;
+    font-size: 9pt; font-weight: 600;
+    margin-right: .3rem;
+  }
+  .note {
+    background: #fffbf0;
+    border-left: 4px solid #d4a853;
+    padding: .75rem 1rem;
+    margin: 1rem 0;
+    font-size: 10pt;
+    border-radius: 0 4px 4px 0;
+  }
+  .page-break { page-break-before: always; }
+  @media print {
+    body { padding: 1cm 1.5cm; font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    pre { font-size: 7.5pt; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== KAPAK ==================== -->
+<div class="cover">
+  <div class="institution">Bilgisayar Mühendisliği Bölümü<br/>Web Teknolojileri Dersi — Dönem Projesi</div>
+  <h1>LibraryOS</h1>
+  <div class="subtitle">Semantik Kütüphane Yönetim Sistemi</div>
+  <p style="font-size:10pt;color:#555;margin-bottom:1.5rem;">
+    XML · RDF/Turtle · Ontoloji · Semantik Web (Web 3.0)
+  </p>
+  <div class="meta">
+    <strong>Alan:</strong> Kütüphane Yönetimi<br/>
+    <strong>Tarih:</strong> Ocak 2025<br/>
+    <strong>Namespace:</strong> http://example.org/library#
+  </div>
+</div>
+
+<!-- ==================== 1. GİRİŞ ==================== -->
+<h2>1. Giriş ve Domain Açıklaması</h2>
+
+<p>Bu proje, <strong>kütüphane yönetim sistemi</strong> domainini ele alarak Web 1.0'dan Semantik Web'e uzanan evrim sürecini somut dosyalar ve uygulamalar aracılığıyla örneklemektedir. Seçilen domain; kitaplar, yazarlar ve kategoriler arasındaki zengin ilişki yapısı sayesinde hem XML veri modellemesi hem de RDF/ontoloji katmanı için ideal bir zemin sunmaktadır.</p>
+
+<p>Proje kapsamında üretilen temel bileşenler:</p>
+<ul>
+  <li><span class="badge">XSD</span> library.xsd — Kütüphane veri şeması</li>
+  <li><span class="badge">XML</span> books.xml, authors.xml, categories.xml</li>
+  <li><span class="badge">HTML</span> index.html — Dinamik web arayüzü</li>
+  <li><span class="badge">RDF</span> library.ttl — Turtle formatında semantik katman (~270+ triple)</li>
+</ul>
+
+<!-- ==================== AŞAMA 1 ==================== -->
+<h2>2. Aşama 1 — Web'in Evrimi</h2>
+
+<h3>2.1 Web 1.0: Statik Kütüphane Sayfaları</h3>
+<p>Web 1.0 döneminde bir kütüphanenin dijital varlığı, yalnızca statik HTML sayfalarından oluşurdu. Kitap katalogları elle yazılan tablolarla oluşturulur, her güncelleme için bir web yöneticisinin müdahalesi gerekirdi. Kullanıcı etkileşimi sıfıra yakın; arama, filtreleme veya kişiselleştirme yoktu. Veri tek yönlü akar: sunucudan tarayıcıya. Örneğin bir kütüphane sitesi, kitap listesini düz HTML tablolarında sunar; ancak hangi kitabın mevcut olduğunu gerçek zamanlı gösteremez, yazar bilgileriyle ilişki kuramaz.</p>
+
+<h3>2.2 Web 2.0: Dinamik ve Kullanıcı Odaklı</h3>
+<p>Web 2.0 ile birlikte kütüphane sistemleri veritabanı destekli dinamik yapılara kavuştu. AJAX ile gerçek zamanlı arama, kullanıcı yorumları, ödünç rezervasyon formları ortaya çıktı. Veri artık JSON/XML API'ları aracılığıyla paylaşılabilir hale geldi. Bu projedeki HTML arayüzü, Web 2.0 paradigmasını temsil etmektedir: XML dosyaları <code>fetch()</code> ile okunmakta, <code>DOMParser</code> ile ayrıştırılmakta, JavaScript ile dinamik olarak DOM'a yansıtılmaktadır.</p>
+
+<h3>2.3 Semantik Web (Web 3.0): Anlamlı Veriye Geçiş</h3>
+<p>Semantik Web, verinin yalnızca insan tarafından değil, <em>makineler tarafından da anlaşılabilmesi</em> ilkesine dayanır. Bu projedeki RDF/Turtle dosyası bu katmanı temsil eder:</p>
+<ul>
+  <li><strong>Makine okunabilirlik:</strong> <code>libr:book/B001 a lib:Book, schema:Book</code> ifadesi, herhangi bir semantik web aracının bu kaydın bir kitap olduğunu anlayabileceği anlamına gelir.</li>
+  <li><strong>Otomatik keşif:</strong> <code>lib:hasAuthor</code> özelliği sayesinde bir arama motoru, kitap ve yazarı ilişkilendirerek "Oğuz Atay'ın tüm eserleri" sorgusunu otomatik çözebilir.</li>
+  <li><strong>Veri entegrasyonu:</strong> <code>rdfs:subClassOf schema:Book</code> ile sistem, schema.org ve Dublin Core gibi standart ontolojilerle uyumlu hale gelir.</li>
+</ul>
+
+<table>
+  <tr><th>Özellik</th><th>Web 1.0</th><th>Web 2.0</th><th>Semantik Web</th></tr>
+  <tr><td>Veri Formatı</td><td>Statik HTML</td><td>JSON/XML API</td><td>RDF/Turtle/OWL</td></tr>
+  <tr><td>Veri Erişimi</td><td>Manuel, tek yönlü</td><td>Dinamik, API tabanlı</td><td>SPARQL sorgulanabilir</td></tr>
+  <tr><td>İlişkiler</td><td>Yok</td><td>İmplicit (FK)</td><td>Explicit (triples)</td></tr>
+  <tr><td>Makine Anlayışı</td><td>Yok</td><td>Sınırlı</td><td>Tam (ontoloji)</td></tr>
+  <tr><td>Yeniden Kullanım</td><td>Yok</td><td>Kısmi</td><td>Linked Data</td></tr>
+</table>
+
+<!-- ==================== AŞAMA 2 ==================== -->
+<div class="page-break"></div>
+<h2>3. Aşama 2 — XML Veri Modeli</h2>
+
+<h3>3.1 XML Schema (library.xsd)</h3>
+<p>XSD dosyası, <code>http://example.org/library#</code> namespace'i altında kütüphane domain modelini tanımlar. Şema şu bileşenleri içerir:</p>
+
+<pre>
+&lt;xs:simpleType name="ISBNType"&gt;
+  &lt;xs:restriction base="xs:string"&gt;
+    &lt;xs:pattern value="978-[0-9]{1}-[0-9]{4}-[0-9]{4}-[0-9]{1}"/&gt;
+  &lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+
+&lt;xs:simpleType name="RatingType"&gt;
+  &lt;xs:restriction base="xs:decimal"&gt;
+    &lt;xs:minInclusive value="1.0"/&gt;
+    &lt;xs:maxInclusive value="5.0"/&gt;
+  &lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+
+&lt;xs:complexType name="BookType"&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name="title"    type="xs:string"/&gt;
+    &lt;xs:element name="author"   type="lib:AuthorRefType" maxOccurs="3"/&gt;
+    &lt;xs:element name="category" type="xs:string"/&gt;
+    &lt;xs:element name="publicationYear" type="lib:YearType"/&gt;
+    &lt;xs:element name="language" type="lib:LanguageType"/&gt;
+    &lt;xs:element name="pageCount" type="lib:PageCountType"/&gt;
+    &lt;xs:element name="rating"   type="lib:RatingType"/&gt;
+    &lt;xs:element name="available" type="xs:boolean"/&gt;
+  &lt;/xs:sequence&gt;
+  &lt;xs:attribute name="bookId"  type="xs:string" use="required"/&gt;
+  &lt;xs:attribute name="isbn"    type="lib:ISBNType" use="required"/&gt;
+  &lt;xs:attribute name="edition" type="xs:positiveInteger" default="1"/&gt;
+&lt;/xs:complexType&gt;
+</pre>
+
+<table>
+  <tr><th>Bileşen</th><th>Açıklama</th></tr>
+  <tr><td>ISBNType</td><td>RegEx kısıtlamalı ISBN-13 formatı</td></tr>
+  <tr><td>RatingType</td><td>1.0–5.0 aralığında ondalıklı puan</td></tr>
+  <tr><td>LanguageType</td><td>Enumeration: 8 dil seçeneği</td></tr>
+  <tr><td>YearType</td><td>1000–2025 aralığı kısıtlaması</td></tr>
+  <tr><td>BookType</td><td>Sequence + attribute kombinasyonu</td></tr>
+  <tr><td>AuthorType</td><td>firstName, lastName, nationality, bio</td></tr>
+  <tr><td>CategoryType</td><td>Hiyerarşik kategori + color attribute</td></tr>
+</table>
+
+<h3>3.2 XML Instance Dosyaları</h3>
+<p><strong>books.xml</strong> — 15 kitap kaydı içerir. Her kayıtta ISBN, yayın yılı, dil, sayfa sayısı, yayınevi, açıklama, puan ve erişilebilirlik bilgisi bulunmaktadır. Yazarlar <code>authorId</code> referansıyla ilişkilendirilmiştir.</p>
+<p><strong>authors.xml</strong> — 14 yazar kaydı içerir. Yazar biyografileri, uyruk bilgileri, doğum/ölüm yılları ve web siteleri eklenmiştir.</p>
+<p><strong>categories.xml</strong> — 10 kategori kaydı; üst kategori ilişkileriyle hiyerarşik yapı oluşturulmuştur.</p>
+
+<!-- ==================== AŞAMA 3 ==================== -->
+<h2>4. Aşama 3 — HTML Web Arayüzü</h2>
+
+<h3>4.1 Teknik Yapı</h3>
+<p>Tek sayfalı uygulama (SPA) mimarisinde geliştirilmiş; harici framework kullanılmamıştır. Tüm işlevsellik vanilla JavaScript ile sağlanmaktadır.</p>
+
+<h3>4.2 XML Okuma Mekanizması</h3>
+<pre>
+async function loadBooks() {
+  const res = await fetch('xml/books.xml');
+  const txt = await res.text();
+  const doc = new DOMParser().parseFromString(txt, 'application/xml');
+  const bookEls = doc.getElementsByTagName('lib:book');
+  return Array.from(bookEls).map(b => ({
+    id:    b.getAttribute('bookId'),
+    title: b.getElementsByTagName('lib:title')[0].textContent,
+    // ... diğer alanlar
+  }));
+}
+</pre>
+
+<h3>4.3 Özellikler</h3>
+<ul>
+  <li><strong>Ana sayfa:</strong> Tüm kitaplar kart görünümünde listelenir, dinamik istatistikler gösterilir.</li>
+  <li><strong>Arama ve Filtreleme:</strong> Başlık/yazar/açıklama ile tam metin arama; kategori, dil ve müsaitlik durumuna göre filtre.</li>
+  <li><strong>Detay Modal:</strong> Her kitap tıklandığında modal pencerede tüm bilgileri gösterilir.</li>
+  <li><strong>XML İndir:</strong> "XML Olarak İndir" butonu, seçili kitabın XML kaydını istemcide oluşturup indirir.</li>
+  <li><strong>RDF İndir:</strong> Tek kitap için Turtle formatında RDF snippet oluşturulup indirilebilir.</li>
+  <li><strong>Semantik bölüm:</strong> Ontoloji açıklaması ve tüm veri dosyalarına download linkleri.</li>
+  <li><strong>Responsive tasarım:</strong> CSS Grid ile mobil uyumlu kart düzeni.</li>
+  <li><strong>Dark theme:</strong> Amber/koyu paletle modern kütüphane estetiği.</li>
+</ul>
+
+<!-- ==================== AŞAMA 4 ==================== -->
+<div class="page-break"></div>
+<h2>5. Aşama 4 — RDF Semantik Katman</h2>
+
+<h3>5.1 Namespace Tanımları</h3>
+<pre>
+@prefix rdf:     &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs:    &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl:     &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix dc:      &lt;http://purl.org/dc/elements/1.1/&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix schema:  &lt;https://schema.org/&gt; .
+@prefix xsd:     &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix lib:     &lt;http://example.org/library#&gt; .        ← Proje namespace
+@prefix libr:    &lt;http://example.org/library/resource/&gt; . ← Kaynaklar
+</pre>
+
+<h3>5.2 Sınıf Tanımları (Classes)</h3>
+<pre>
+lib:Book a rdfs:Class, owl:Class ;
+  rdfs:label "Kitap"@tr ;
+  rdfs:subClassOf schema:Book .    ← schema.org ile uyumluluk
+
+lib:Author a rdfs:Class, owl:Class ;
+  rdfs:label "Yazar"@tr ;
+  rdfs:subClassOf schema:Person .  ← schema.org ile uyumluluk
+
+lib:Category a rdfs:Class, owl:Class ;
+  rdfs:label "Kategori"@tr .
+
+lib:Publisher a rdfs:Class, owl:Class ;
+  rdfs:subClassOf schema:Organization .
+</pre>
+
+<h3>5.3 Özellik Tanımları (Properties)</h3>
+<pre>
+lib:hasAuthor a rdf:Property, owl:ObjectProperty ;
+  rdfs:domain lib:Book ;           ← Kitaptan
+  rdfs:range  lib:Author ;         ← Yazara
+  rdfs:subPropertyOf dc:creator .  ← Dublin Core ile uyum
+
+lib:hasCategory a rdf:Property, owl:ObjectProperty ;
+  rdfs:domain lib:Book ;
+  rdfs:range  lib:Category .
+
+lib:rating a rdf:Property, owl:DatatypeProperty ;
+  rdfs:domain lib:Book ;
+  rdfs:range  xsd:decimal .
+
+lib:isAvailable a rdf:Property, owl:DatatypeProperty ;
+  rdfs:domain lib:Book ;
+  rdfs:range  xsd:boolean .
+</pre>
+
+<h3>5.4 Örnek Triple Kayıtları</h3>
+<pre>
+# Kitap kaydı — 10 triple
+libr:book/B001 a lib:Book, schema:Book ;
+  dc:title           "Tutunamayanlar" ;
+  lib:hasAuthor      libr:author/A001 ;
+  lib:hasCategory    libr:category/C002 ;
+  dc:language        "Turkish" ;
+  schema:datePublished "1972"^^xsd:gYear ;
+  lib:isbn           "978-9-7534-2891-3" ;
+  lib:pageCount      724 ;
+  lib:rating         4.8 ;
+  lib:isAvailable    true ;
+  schema:publisher   "Yapı Kredi Yayınları" .
+
+# Yazar kaydı — 8 triple
+libr:author/A003 a lib:Author, schema:Person ;
+  schema:name        "Orhan Pamuk" ;
+  schema:givenName   "Orhan" ;
+  schema:familyName  "Pamuk" ;
+  schema:birthDate   "1952"^^xsd:gYear ;
+  lib:nationality    "Turkish" ;
+  lib:isActiveAuthor true ;
+  schema:award       "Nobel Edebiyat Ödülü 2006" ;
+  schema:url         &lt;https://www.orhanpamuk.net&gt; .
+</pre>
+
+<h3>5.5 Triple Dağılımı</h3>
+<table>
+  <tr><th>Bölüm</th><th>Triple Sayısı</th></tr>
+  <tr><td>Ontoloji tanımı (OWL/RDFS)</td><td>29</td></tr>
+  <tr><td>Kategori kaynakları (6 × 4)</td><td>24</td></tr>
+  <tr><td>Yazar kaynakları (14 × 8)</td><td>112</td></tr>
+  <tr><td>Kitap kaynakları (15 × 10)</td><td>150</td></tr>
+  <tr><td><strong>Toplam</strong></td><td><strong>~315 triple</strong></td></tr>
+</table>
+
+<!-- ==================== KARŞILAŞTIRMA ==================== -->
+<div class="page-break"></div>
+<h2>6. XML vs. RDF — Karşılaştırma</h2>
+
+<table>
+  <tr><th>Kriter</th><th>XML</th><th>RDF</th></tr>
+  <tr><td>Amaç</td><td>Veri yapılandırma</td><td>Anlam ve ilişki tanımlama</td></tr>
+  <tr><td>İlişkiler</td><td>Hiyerarşik (parent–child)</td><td>Graf yapısı (subject–predicate–object)</td></tr>
+  <tr><td>Makine anlayışı</td><td>Yok (yapı bilinir, anlam bilinmez)</td><td>Tam (ontoloji ile)</td></tr>
+  <tr><td>Sorgulama</td><td>XPath, XQuery</td><td>SPARQL</td></tr>
+  <tr><td>Birlikte çalışabilirlik</td><td>Şema bağımlı</td><td>URI tabanlı, evrensel</td></tr>
+  <tr><td>Veri entegrasyonu</td><td>Zor (mapping gerekir)</td><td>Kolay (shared URIs)</td></tr>
+  <tr><td>İnsan okunabilirlik</td><td>Yüksek</td><td>Orta (Turtle ile iyi)</td></tr>
+  <tr><td>Araç desteği</td><td>Geniş</td><td>Büyüyen ekosistem</td></tr>
+</table>
+
+<div class="note">
+  <strong>Semantik Avantaj Örneği:</strong> XML'de bir kitabın yazarını bulmak için <code>books.xml</code>'deki <code>authorId</code>'yi <code>authors.xml</code>'de manuel eşleştirmek gerekir. RDF'de ise <code>libr:book/B001 lib:hasAuthor libr:author/A001</code> triple'ı doğrudan makine tarafından gezinilebilir bir bağlantı kurar. Bir SPARQL sorgusuyla "Türk yazarların 1950 sonrası kitapları" saniyeler içinde bulunabilir.
+</div>
+
+<!-- ==================== ENTEGRASYON ==================== -->
+<h2>7. Aşama 5 — Entegrasyon</h2>
+<p>HTML arayüzü şu entegrasyon noktalarını içermektedir:</p>
+<ul>
+  <li>Header'da <strong>"RDF İndir"</strong> butonu → <code>library.ttl</code> dosyasını indirir.</li>
+  <li>Semantik bölümde tüm dosyalara (TTL, XML, XSD) download linkleri.</li>
+  <li>Detay modalında <strong>"XML Olarak İndir"</strong> ve <strong>"RDF Kaydı"</strong> butonları — istemci tarafında dinamik dosya üretimi.</li>
+  <li>HTML <code>&lt;head&gt;</code>'de <code>&lt;link rel="alternate"&gt;</code> ile makine keşfi için semantik anotasyon.</li>
+  <li>HTML elementlerinde <code>property="schema:name"</code>, <code>typeof="schema:Book"</code> RDFa anotasyonları.</li>
+</ul>
+
+<!-- ==================== ZORLUKLAR ==================== -->
+<h2>8. Karşılaşılan Zorluklar</h2>
+<ul>
+  <li><strong>Namespace parsing:</strong> Tarayıcıların <code>getElementsByTagName</code>'i namespace prefix ile farklı işlemesi nedeniyle <code>lib:book</code>, <code>lib:title</code> şeklinde prefix eklenmesi gerekti.</li>
+  <li><strong>CORS / file:// protokolü:</strong> Lokal geliştirme sırasında fetch() CORS engeline takılabilir. Bu nedenle inline fallback veri embed edildi.</li>
+  <li><strong>XSD kısıtlamaları:</strong> ISBN pattern'ının tüm örnek verileri kapsayacak şekilde ayarlanması dikkat gerektirdi.</li>
+  <li><strong>RDF triple sayısı:</strong> İlişkilerin hem <code>lib:</code> hem <code>schema:</code> namespace'iyle çift sınıflandırılması (a lib:Book, schema:Book) triple sayısını artırdı.</li>
+</ul>
+
+<!-- ==================== GELECEĞİN ÖNERİLERİ ==================== -->
+<h2>9. Gelecek Geliştirme Önerileri</h2>
+<ul>
+  <li><strong>SPARQL Endpoint:</strong> Apache Jena Fuseki ile triple store kurularak SPARQL sorgu arayüzü eklenebilir.</li>
+  <li><strong>OWL Reasoning:</strong> OWL Full ile mantıksal çıkarım (inference) desteği — örn. otomatik alt-kategori ilişkilendirme.</li>
+  <li><strong>Linked Data:</strong> Wikidata, DBpedia ile sameAs linkleri kurularak Linked Open Data ekosistemine katılım.</li>
+  <li><strong>JSON-LD:</strong> schema.org JSON-LD bloğu eklenerek Google Rich Results desteği sağlanabilir.</li>
+  <li><strong>SHACL:</strong> RDF verisi için kısıtlama doğrulama katmanı eklenebilir (XSD'nin RDF karşılığı).</li>
+  <li><strong>Federated Search:</strong> Farklı kütüphanelerin RDF verileri SPARQL Federation ile birleştirilebilir.</li>
+</ul>
+
+<!-- ==================== SONUÇ ==================== -->
+<h2>10. Sonuç</h2>
+<p>Bu proje, kütüphane domain'ini merkeze alarak Web teknolojilerinin üç evresini kapsamlı biçimde örneklemiştir. XML ile yapılandırılmış, doğrulanmış veri modeli oluşturulmuş; HTML/JS arayüzüyle bu veri dinamik olarak sunulmuş; RDF/Turtle ile semantik anlam ve makine okunabilirlik kazandırılmıştır.</p>
+
+<p>Projenin en kritik çıktısı şudur: aynı veriyi hem XML hem RDF ile modellemek, iki paradigma arasındaki farkı elle tutulur biçimde ortaya koymuştur. XML verisi yapı bilgisi taşırken, RDF triple'ları <em>anlam</em> bilgisi taşımakta; bu iki katmanın birlikte kullanımı modern Semantik Web uygulamalarının temelini oluşturmaktadır.</p>
+
+<hr style="margin:2rem 0;border:none;border-top:1px solid #ddd;"/>
+<p style="font-size:9pt;color:#999;text-align:center;">
+  LibraryOS Proje Raporu · library.ttl (~315 triple) · Namespace: http://example.org/library#
+</p>
+
+</body>
+</html>
