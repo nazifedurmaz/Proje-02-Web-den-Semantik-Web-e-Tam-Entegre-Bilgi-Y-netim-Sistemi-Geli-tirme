@@ -7,7 +7,7 @@ Web Teknolojileri dersi dönem projesi. Kütüphane domain'i üzerinde XML, HTML
 ```
 library-project/
 ├── index.html              # Ana web arayüzü (HTML + CSS + JS)
-├── rapor.html              # Proje raporu (PDF'e dönüştürmek için)
+├── rapor.pdf              # Projenin raporu
 ├── README.md               # Bu dosya
 ├── xml/
 │   ├── library.xsd         # XML Schema tanımı
